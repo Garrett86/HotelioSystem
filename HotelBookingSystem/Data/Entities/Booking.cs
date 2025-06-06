@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace HotelBookingSystem.Entities
+namespace HotelBookingSystem.Data.Entities
 {
     public class Booking
     {

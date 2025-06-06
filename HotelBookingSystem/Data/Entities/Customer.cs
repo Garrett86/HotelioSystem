@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HotelBookingSystem.Entities
+namespace HotelBookingSystem.Data.Entities
 {
     public class Customer
     {

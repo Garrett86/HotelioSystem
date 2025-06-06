@@ -1,0 +1,66 @@
+﻿@model HotelBookingSystem.Models.DTO.Member_Data_Search
+@{
+    Layout = ViewBag.Layout;
+}
+
+@section Styles{
+    <style>
+        #myTable {
+            margin-left: auto;
+            margin-right: auto;
+            width: auto;
+            /* 依內容自動調整寬度 */
+            border-collapse: collapse;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            /* 黑色實線邊框 */
+            border-collapse: collapse;
+            /* 合併邊框，避免雙線 */
+            margin: 10px auto 10px;
+        }
+
+        th,
+        td {
+            width: 110px;
+            text-align: center;
+        }
+    </style>
+}
+
+<section class="u-clearfix u-section-1" id="block-6">
+    <div class="container">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div id="table-container">
+                    <table id="myTable" class="table table-bordered table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>修改</th>
+                                <th>刪除</th>
+                                <th>編號</th>
+                                <th>名稱</th>
+                                <th>樓層</th>
+                                <th>房間號碼</th>
+                                <th>床型</th>
+                                <th>價錢</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 資料列將由 JS 動態插入 -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js/RootInfinite.js"></script>
+}

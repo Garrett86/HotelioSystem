@@ -7,7 +7,9 @@
     <meta name="description" content="">
     <title>Memeber</title>
     <link rel="stylesheet" href="~/css/nicepage.css" media="screen">
+    @RenderSection("Styles", required: false)
     <meta name="generator" content="Nicepage 7.5.2, nicepage.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="referrer" content="origin">
 
 
@@ -17,15 +19,15 @@
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
     <script type="application/ld+json">
         {
-                "@@context": "http://schema.org",
-                "@@type": "Organization",
-                "name": "",
-                "logo": "images/default-logo.png",
-                "sameAs": [
-                        "https://facebook.com/name",
-                        "https://twitter.com/name",
-                        "https://instagram.com/name"
-                ]
+        "@@context": "http://schema.org",
+        "@@type": "Organization",
+        "name": "",
+        "logo": "images/default-logo.png",
+        "sameAs": [
+        "https://facebook.com/name",
+        "https://twitter.com/name",
+        "https://instagram.com/name"
+        ]
         }</script>
     <meta name="theme-color" content="#478ac9">
     <meta name="twitter:site" content="@@">
@@ -35,42 +37,106 @@
     <meta property="og:title" content="Login">
     <meta property="og:type" content="website">
     <meta data-intl-tel-input-cdn-path="intlTelInput/">
+    <style>
+        .logo-new {
+            border-radius: 50%;
+        }
+
+        .u-btn001 {
+            display: block;
+            width: 100%;
+            padding: 10px 20px;
+            text-align: center;
+            background-color: #4682B4; /* 按鈕背景色 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .txt-login{
+            width :50px !important;
+            position:relative;
+            top:15px;
+        }
+    </style>
 </head>
 <body data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="en">
-    <header class="u-clearfix u-header u-white u-header" id="header">
+    <header class="u-border-5 u-border-grey-15 u-border-no-left u-border-no-right u-border-no-top u-clearfix u-header u-white u-header"
+            id="header">
+            @if(TempData["SuccessMessage"] != null){
+            <script>
+                alert('@TempData["SuccessMessage"]');
+            </script>
+            }
         <div class="u-clearfix u-sheet u-sheet-1">
             <a asp-controller="Home" asp-action="Index" class="u-image u-logo u-image-1" title="Home">
-                <img src="~/images/default-logo.png" class="u-logo-image u-logo-image-1">
+                <img src="~/logo/default-logoNew.webp" class="u-logo-image u-logo-image-1 logo-new">
             </a>
-            <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
+            <nav class="u-dropdown-icon u-menu u-menu-dropdown u-offcanvas u-menu-1">
                 <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px; font-weight: 700;">
-                    <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-decoration u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base u-hamburger-link-1" href="#">
-                        <svg class="u-svg-link" viewBox="0 0 24 24"><use xlink:href="#menu-hamburger"></use></svg>
-                        <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                    <a class="u-button-style u-custom-active-border-color u-custom-active-color u-custom-border u-custom-border-color u-custom-borders u-custom-color u-custom-hover-border-color u-custom-hover-color u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-text-active-color u-custom-text-color u-custom-text-decoration u-custom-text-hover-color u-custom-top-bottom-menu-spacing u-hamburger-link u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base u-hamburger-link-1"
+                       href="#">
+                        <svg class="u-svg-link" viewBox="0 0 24 24">
+                            <use xlink:href="#menu-hamburger"></use>
+                        </svg>
+                        <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px"
+                             xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
                             <g>
-                                <rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+                                <rect y="1" width="16" height="2"></rect>
+                                <rect y="7" width="16" height="2"></rect>
+                                <rect y="13" width="16" height="2"></rect>
                             </g>
                         </svg>
                     </a>
                 </div>
                 <div class="u-custom-menu u-nav-container">
                     <ul class="u-nav u-spacing-20 u-unstyled u-nav-1">
+                        @if (!string.IsNullOrEmpty(ViewBag.User))
+                        {
+                            <li class="u-nav-item">
+                                <a class="u-border-2 u-button-style u-dialog-link u-nav-link u-text-body-color u-text-hover-palette-4-dark-2"
+                                   style="padding: 10px 18px;">@ViewBag.User</a>
+                                <div class="u-nav-popup">
+                                    <ul class="u-border-2 u-h-spacing-18 u-nav u-unstyled u-v-spacing-10">
+                                        <li class="u-nav-item">
+                                            <a href="@Url.Action("Logout", "Login")" class="u-button-style u-nav-link u-white">登出</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="u-nav-item">
+                                <a href="@Url.Action("Login", "Login")" class="u-border-2 u-button-style u-dialog-link u-nav-link u-text-body-color u-text-hover-palette-4-dark-2"
+                                   style="padding: 10px 18px;"></a>
+                            </li>
+                        }
                         <li class="u-nav-item">
-                            <a asp-area="" asp-controller="News" asp-action="News" class="u-border-2 u-button-style u-nav-link u-text-active-white u-text-body-color u-text-hover-palette-4-dark-2" style="padding: 10px 18px;">最新消息</a>
+                            <a asp-controller="Book" asp-action="BookPage" class="u-border-2 u-button-style u-nav-link u-text-body-color u-text-hover-palette-4-dark-2"
+                               style="padding: 10px 18px;">返回訂房</a>
                         </li>
                         <li class="u-nav-item">
-                            <a asp-area="" asp-controller="About" asp-action="About" class="u-border-2 u-button-style u-nav-link u-text-active-white u-text-body-color u-text-hover-palette-4-dark-2" style="padding: 10px 18px;">返回飯店介紹</a>
+                            <a asp-controller="News" asp-action="News" class="u-border-2 u-button-style u-nav-link u-text-body-color u-text-hover-palette-4-dark-2"
+                               style="padding: 10px 18px;">最新消息</a>
                         </li>
                         <li class="u-nav-item">
-                            <a class="u-border-2 u-button-style u-dialog-link u-nav-link u-text-active-white u-text-body-color u-text-hover-palette-4-dark-2" href="#popup-5f95" style="color: #0f0f0f !important;
-
- padding: 10px 18px;">登入 /  註冊</a><div class="u-nav-popup">
-                                <ul class="u-border-2 u-h-spacing-18 u-nav u-unstyled u-v-spacing-10 u-white">
+                            <a asp-controller="RoomType" asp-action="RoomType" class="u-border-2 u-button-style u-nav-link u-text-body-color u-text-hover-palette-4-dark-2"
+                               style="padding: 10px 18px;">返回飯店介紹</a>
+                        </li>
+                        <li class="u-nav-item">
+                            <a class="u-border-2 u-button-style u-dialog-link u-nav-link u-text-body-color u-text-hover-palette-4-dark-2"
+                               href="#popup-5f95" style="padding: 10px 18px;">登入 / 註冊</a>
+                            <div class="u-nav-popup">
+                                <ul class="u-border-2 u-h-spacing-18 u-nav u-unstyled u-v-spacing-10">
                                     <li class="u-nav-item">
-                                        <a asp-area="" asp-controller="Member" asp-action="Member" class="u-button-style u-nav-link u-white">會員中心</a>
+                                        <a class="u-button-style u-nav-link u-white" asp-controller="Member" asp-action="Member">會員中心</a>
                                     </li>
                                     <li class="u-nav-item">
-                                        <a asp-area="" asp-controller="About" asp-action="Order" class="u-button-style u-nav-link u-white">訂單管理</a>
+                                        <a href="@Url.Action("ShoppingCart", "Book")" class="u-button-style u-nav-link u-white">訂單管理</a>
                                     </li>
                                 </ul>
                             </div>
@@ -83,16 +149,27 @@
                             <div class="u-menu-close"></div>
                             <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-3">
                                 <li class="u-nav-item">
+                                    <a class="u-button-style u-dialog-link u-nav-link" href="#popup-5f95">XXX</a>
+                                    <div class="u-nav-popup">
+                                        <ul class="u-border-2 u-h-spacing-18 u-nav u-unstyled u-v-spacing-10">
+                                            <li class="u-nav-item">
+                                                <a class="u-button-style u-nav-link">登出</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="u-nav-item">
                                     <a class="u-button-style u-nav-link">最新消息</a>
                                 </li>
                                 <li class="u-nav-item">
                                     <a class="u-button-style u-nav-link">返回飯店介紹</a>
                                 </li>
                                 <li class="u-nav-item">
-                                    <a class="u-button-style u-dialog-link u-nav-link" href="#popup-5f95">登入 /  註冊</a><div class="u-nav-popup">
+                                    <a class="u-button-style u-dialog-link u-nav-link" href="#popup-5f95">登入 / 註冊</a>
+                                    <div class="u-nav-popup">
                                         <ul class="u-border-2 u-h-spacing-18 u-nav u-unstyled u-v-spacing-10">
                                             <li class="u-nav-item">
-                                                <a class="u-button-style u-nav-link">會員中心</a>
+                                                <a asp-controller="Member" asp-action="Member" class="u-button-style u-nav-link">會員中心</a>
                                             </li>
                                             <li class="u-nav-item">
                                                 <a class="u-button-style u-nav-link">訂單管理</a>
@@ -105,13 +182,23 @@
                     </div>
                     <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
                 </div>
-        </div>
-        </nav>
+            </nav>
         </div>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+@*             <section id="popup-5f95"></section> *@
+            <span style="height: 64px; width: 64px; margin-left: 0px; margin-right: auto; margin-top: 0px; background-image: none; right: 20px; bottom: 20px; padding: 15px"
+                  class="u-back-to-top u-icon u-icon-circle u-opacity u-opacity-85 u-palette-1-base" data-href="#">
+                <svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 551.13 551.13">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-1d98"></use>
+                </svg>
+                <svg class="u-svg-content" enable-background="new 0 0 551.13 551.13" viewBox="0 0 551.13 551.13"
+                     xmlns="http://www.w3.org/2000/svg" id="svg-1d98">
+                    <path d="m275.565 189.451 223.897 223.897h51.668l-275.565-275.565-275.565 275.565h51.668z"></path>
+                </svg>
+            </span>
         </main>
     </div>
     <footer class="u-align-center u-clearfix u-container-align-center u-footer u-palette-5-dark-2 u-footer" id="footer">
@@ -170,134 +257,200 @@ c0-7.4,3.4-18.8,18.8-18.8h13.8v15.4H75.5z"></path>
     </footer>
 
     <style>
+        .u-dialog-section-8 .u-dialog-1 {
+            width: 778px;
+            min-height: 427px;
+            height: auto;
+            margin: 142px auto 60px;
+        }
+
+        .u-dialog-section-8 .u-container-layout-1 {
+            padding: 0;
+        }
+
+        .u-dialog-section-8 .u-group-1 {
+            min-height: 61px;
+            height: auto;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .u-dialog-section-8 .u-container-layout-2 {
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+
+        .u-dialog-section-8 .u-text-1 {
+            font-weight: 700;
+            margin: 0 auto;
+        }
+
+        .u-dialog-section-8 .u-group-2 {
+            width: 123px;
+            min-height: 139px;
+            height: auto;
+            margin: 26px auto 0 29px;
+        }
+
+        .u-dialog-section-8 .u-icon-1 {
+            width: 64px;
+            height: 64px;
+            margin: 16px auto 0;
+        }
+
+        .u-dialog-section-8 .u-text-2 {
+            margin: 20px auto 0;
+        }
+
+        .u-dialog-section-8 .u-group-3 {
+            width: 123px;
+            min-height: 139px;
+            height: auto;
+            margin: -139px auto 0 182px;
+        }
+
+        .u-dialog-section-8 .u-icon-2 {
+            width: 64px;
+            height: 64px;
+            margin: 16px auto 0;
+        }
+
+        .u-dialog-section-8 .u-text-3 {
+            margin: 14px auto 0;
+        }
+
+        .u-dialog-section-8 .u-group-4 {
+            width: 123px;
+            min-height: 139px;
+            height: auto;
+            margin: -140px 320px 0 auto;
+        }
+
+        .u-dialog-section-8 .u-icon-3 {
+            width: 64px;
+            height: 64px;
+            margin: 16px auto 0;
+        }
+
+        .u-dialog-section-8 .u-text-4 {
+            margin: 14px auto 0;
+        }
+
+        .u-dialog-section-8 .u-group-5 {
+            width: 123px;
+            min-height: 139px;
+            height: auto;
+            margin: -139px 167px 0 auto;
+        }
+
+        .u-dialog-section-8 .u-icon-4 {
+            width: 64px;
+            height: 64px;
+            margin: 16px auto 0;
+        }
+
+        .u-dialog-section-8 .u-text-5 {
+            margin: 14px auto 0;
+        }
+
+        .u-dialog-section-8 .u-group-6 {
+            width: 123px;
+            min-height: 139px;
+            height: auto;
+            margin: -139px 15px 0 auto;
+        }
+
+        .u-dialog-section-8 .u-icon-5 {
+            width: 64px;
+            height: 64px;
+            margin: 16px auto 0;
+        }
+
+        .u-dialog-section-8 .u-text-6 {
+            margin: 14px auto 0;
+        }
+
+        .u-dialog-section-8 .u-group-7 {
+            width: 123px;
+            min-height: 139px;
+            height: auto;
+            margin: 36px auto 0 30px;
+        }
+
+        .u-dialog-section-8 .u-icon-6 {
+            width: 64px;
+            height: 64px;
+            margin: 16px auto 0;
+        }
+
+        .u-dialog-section-8 .u-text-7 {
+            margin: 14px auto 0;
+        }
+
+        .u-dialog-section-8 .u-group-8 {
+            width: 123px;
+            min-height: 139px;
+            height: auto;
+            margin: -139px auto 0 187px;
+        }
+
+        .u-dialog-section-8 .u-icon-7 {
+            width: 64px;
+            height: 64px;
+            margin: 16px auto 0;
+        }
+
+        .u-dialog-section-8 .u-text-8 {
+            margin: 14px auto 0;
+        }
+
+        .u-dialog-section-8 .u-icon-8 {
+            width: 20px;
+            height: 20px;
+        }
 
         .u-dialog-section-9 .u-dialog-1 {
-            width: 700px;
-            min-height: 512px;
+            width: 674px;
             height: auto;
-            margin: 243px auto 60px calc(((100% - 1140px) / 2) + 161px);
+            min-height: 385px;
+            margin: 172px calc(((100% - 1140px) / 2) + 215px) 60px auto;
         }
 
         .u-dialog-section-9 .u-container-layout-1 {
-            padding: 1px 0 0;
+            padding: 0;
         }
 
-        .u-dialog-section-9 .u-tabs-1 {
-            min-height: 503px;
+        .u-dialog-section-9 .u-group-1 {
+            width: 618px;
+            min-height: 79px;
             height: auto;
-            width: 685px;
-            margin: 7px 0 0 auto;
-        }
-
-        .u-dialog-section-9 .u-tab-list-1 {
-            background-image: none;
+            margin: 0 auto 0 23px;
         }
 
         .u-dialog-section-9 .u-container-layout-2 {
-            padding: 30px;
+            padding: 0 5px;
+        }
+
+        .u-dialog-section-9 .u-text-1 {
+            width: 42px;
+            margin: 12px auto 0;
         }
 
         .u-dialog-section-9 .u-form-1 {
-            height: 188px;
-            width: 449px;
-            margin: 44px auto 0;
-        }
-
-        .u-dialog-section-9 .u-form-group-2 {
-            margin-left: 0;
+            height: 270px;
+            margin: 24px 95px 0 117px;
         }
 
         .u-dialog-section-9 .u-btn-1 {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-left: 178px;
+            padding-right: 180px;
+            background-image: none;
         }
 
         .u-dialog-section-9 .u-btn-2 {
             border-style: solid;
-            margin: -47px 110px 0 auto;
+            margin: -12px auto 0 129px;
             padding: 0;
-        }
-
-        .u-dialog-section-9 .u-container-layout-3 {
-            padding: 0 30px;
-        }
-
-        .u-dialog-section-9 .u-form-2 {
-            height: 417px;
-            width: 368px;
-            margin: 0 auto;
-        }
-
-        .u-dialog-section-9 .u-input-3 {
-            box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        .u-dialog-section-9 .u-form-group-5 {
-            margin-left: 0;
-        }
-
-        .u-dialog-section-9 .u-input-4 {
-            box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        .u-dialog-section-9 .u-form-group-6 {
-            margin-left: 0;
-        }
-
-        .u-dialog-section-9 .u-input-5 {
-            box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        .u-dialog-section-9 .u-form-group-7 {
-            margin-left: 0;
-        }
-
-        .u-dialog-section-9 .u-input-6 {
-            box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        .u-dialog-section-9 .u-form-group-8 {
-            margin-left: 0;
-        }
-
-        .u-dialog-section-9 .u-input-7 {
-            box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        .u-dialog-section-9 .u-text-1 {
-            letter-spacing: 7px;
-            margin-right: auto;
-        }
-
-        .u-dialog-section-9 .u-form-group-10 {
-            margin-left: 0;
-        }
-
-        .u-dialog-section-9 .u-label-8 {
-            margin-left: 0;
-        }
-
-        .u-dialog-section-9 .u-input-8 {
-            box-shadow: 5px 5px 20px 0 rgba(0, 0, 0, 0.4);
-        }
-
-        .u-dialog-section-9 .u-btn-3 {
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-
-        .u-dialog-section-9 .u-container-layout-4 {
-            padding: 19px 30px;
-        }
-
-        .u-dialog-section-9 .u-form-3 {
-            height: 414px;
-            width: 570px;
-            margin: 0 auto;
-        }
-
-        .u-dialog-section-9 .u-form-group-14 {
-            margin-left: 0;
         }
 
         .u-dialog-section-9 .u-icon-1 {
@@ -306,109 +459,180 @@ c0-7.4,3.4-18.8,18.8-18.8h13.8v15.4H75.5z"></path>
         }
 
         @@media (max-width: 1199px) {
-            .u-dialog-section-9 .u-dialog-1 {
-                margin-left: calc(((100% - 940px) / 2) + 161px);
+            .u-dialog-section-8 .u-group-1 {
+                margin-top: 0;
+                height: auto;
             }
 
-            .u-dialog-section-9 .u-tabs-1 {
-                width: 685px;
-                margin-right: 0;
+            .u-dialog-section-8 .u-container-layout-2 {
+                padding-top: 30px;
+                padding-bottom: 30px;
+            }
+
+            .u-dialog-section-8 .u-group-2 {
+                margin-top: 317px;
+                height: auto;
+            }
+
+            .u-dialog-section-8 .u-icon-1 {
+                width: 64px;
+            }
+
+            .u-dialog-section-8 .u-group-3 {
+                margin-top: 89px;
+                margin-left: 182px;
+                height: auto;
+            }
+
+            .u-dialog-section-8 .u-icon-2 {
+                width: 64px;
+            }
+
+            .u-dialog-section-8 .u-group-4 {
+                margin-top: -367px;
+                margin-right: 320px;
+                height: auto;
+            }
+
+            .u-dialog-section-8 .u-icon-3 {
+                width: 64px;
+            }
+
+            .u-dialog-section-8 .u-group-5 {
+                margin-top: -595px;
+                margin-right: 167px;
+                height: auto;
+            }
+
+            .u-dialog-section-8 .u-icon-4 {
+                width: 64px;
+            }
+
+            .u-dialog-section-8 .u-group-6 {
+                margin-top: -367px;
+                margin-right: 15px;
+                height: auto;
+            }
+
+            .u-dialog-section-8 .u-icon-5 {
+                width: 64px;
+            }
+
+            .u-dialog-section-8 .u-group-7 {
+                margin-top: 317px;
+                height: auto;
+            }
+
+            .u-dialog-section-8 .u-icon-6 {
+                width: 64px;
+            }
+
+            .u-dialog-section-8 .u-group-8 {
+                margin-top: 317px;
+                margin-left: 187px;
+                height: auto;
+            }
+
+            .u-dialog-section-8 .u-icon-7 {
+                width: 64px;
+            }
+
+            .u-dialog-section-9 .u-dialog-1 {
+                width: 674px;
+                margin-right: calc(((100% - 940px) / 2) + 215px);
+                min-height: 471px;
+            }
+
+            .u-dialog-section-9 .u-group-1 {
+                min-height: 79px;
+                margin-right: initial;
+                margin-left: initial;
+                width: auto;
+                height: auto;
+            }
+
+            .u-dialog-section-9 .u-container-layout-2 {
+                padding-top: 5px;
+                padding-bottom: 0;
             }
 
             .u-dialog-section-9 .u-form-1 {
-                width: 570px;
+                margin-right: 95px;
+                margin-left: 116px;
+            }
+
+            .u-dialog-section-9 .u-btn-1 {
+                padding-top: 10px;
+                padding-bottom: 10px;
             }
 
             .u-dialog-section-9 .u-btn-2 {
-                margin-top: -47px;
-                margin-right: 110px;
-            }
-
-            .u-dialog-section-9 .u-form-2 {
-                width: 570px;
-            }
-
-            .u-dialog-section-9 .u-text-1 {
-                margin-left: 0;
+                margin-top: -12px;
+                margin-left: 128px;
             }
         }
 
         @@media (max-width: 991px) {
+            .u-dialog-section-8 .u-dialog-1 {
+                width: 720px;
+            }
+
             .u-dialog-section-9 .u-dialog-1 {
-                margin-left: calc(((100% - 720px) / 2) + 20px);
-            }
-        }
-
-        @@media (max-width: 767px) {
-            .u-dialog-section-9 .u-dialog-1 {
-                width: 540px;
-                margin-left: calc(((100% - 540px) / 2));
+                margi
             }
 
-            .u-dialog-section-9 .u-tabs-1 {
-                width: 540px;
+            @@media (max-width: 767px) {
+                .u-dialog-section-8 .u-dialog-1 {
+                    width: 540px;
+                }
+
+                .u-dialog-section-8 .u-container-layout-2 {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+
+                .u-dialog-section-9 .u-dialog-1 {
+                    width: 540px;
+                    margin-right: calc(((100% - 540px) / 2));
+                }
+
+                .u-dialog-section-9 .u-form-1 {
+                    margin-right: 28px;
+                    margin-left: 49px;
+                }
+
+                .u-dialog-section-9 .u-btn-2 {
+                    margin-left: 0;
+                }
             }
 
-            .u-dialog-section-9 .u-container-layout-2 {
-                padding-left: 10px;
-                padding-right: 10px;
-            }
+            @@media (max-width: 575px) {
+                .u-dialog-section-8 .u-dialog-1 {
+                    width: 340px;
+                }
 
-            .u-dialog-section-9 .u-form-1 {
-                width: 500px;
-            }
+                .u-dialog-section-8 .u-group-4 {
+                    margin-right: 217px;
+                }
 
-            .u-dialog-section-9 .u-btn-2 {
-                margin-right: 5px;
-            }
+                .u-dialog-section-9 .u-dialog-1 {
+                    width: 340px;
+                    margin-right: calc(((100% - 340px) / 2));
+                }
 
-            .u-dialog-section-9 .u-container-layout-3 {
-                padding-left: 10px;
-                padding-right: 10px;
+                .u-dialog-section-9 .u-form-1 {
+                    margin-right: 0;
+                    margin-left: 0;
+                }
             }
-
-            .u-dialog-section-9 .u-form-2 {
-                width: 500px;
-            }
-
-            .u-dialog-section-9 .u-container-layout-4 {
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-
-            .u-dialog-section-9 .u-form-3 {
-                width: 520px;
-            }
-        }
-
-        @@media (max-width: 575px) {
-            .u-dialog-section-9 .u-dialog-1 {
-                width: 340px;
-                margin-left: calc(((100% - 340px) / 2));
-            }
-
-            .u-dialog-section-9 .u-tabs-1 {
-                width: 340px;
-            }
-
-            .u-dialog-section-9 .u-form-1 {
-                width: 320px;
-            }
-
-            .u-dialog-section-9 .u-btn-2 {
-                margin-right: 0;
-            }
-
-            .u-dialog-section-9 .u-form-2 {
-                width: 300px;
-            }
-
-            .u-dialog-section-9 .u-form-3 {
-                width: 320px;
-            }
-        }
     </style>
-
+    <script>
+        // 清除錯誤訊息
+        function clearErrorMessage() {
+            document.getElementById("error-message").innerHTML = '';
+        }
+    </script>
+    @Html.Partial("_LoginPopup")
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

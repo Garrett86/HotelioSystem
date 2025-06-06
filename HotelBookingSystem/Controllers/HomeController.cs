@@ -1,6 +1,6 @@
 using HotelBookingSystem.Data;
+using HotelBookingSystem.Data.Entities;
 using HotelBookingSystem.Data.Repositories;
-using HotelBookingSystem.Entities;
 using HotelBookingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

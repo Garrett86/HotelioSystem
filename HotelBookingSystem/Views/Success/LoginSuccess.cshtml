@@ -1,0 +1,12 @@
+﻿@{
+    ViewData["Title"] = "登入成功";
+}
+
+<h2>@TempData["Message"]</h2>
+
+<script>
+    // 3 秒後跳轉
+    setTimeout(function () {
+        window.location.href = '/Book/BookPage';
+    }, 3000);
+</script>

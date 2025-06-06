@@ -1,0 +1,54 @@
+﻿@model HotelBookingSystem.Models.DTO.Member_Data_Search
+
+<section class="u-black u-clearfix u-container-style u-dialog-block u-opacity u-opacity-70 u-dialog-section-9"
+         id="popup-5f95">
+    <div class="u-align-center u-container-style u-dialog u-grey-15 u-dialog-1">
+        <div class="u-container-layout u-container-layout-1">
+            <div class="u-container-style u-expanded-width u-group u-palette-1-dark-1 u-group-1">
+                <div class="u-container-layout u-container-layout-2">
+                    <h4 class="u-text u-text-1 txt-login">登入</h4>
+                </div>
+            </div>
+            <div class="u-form u-form-1">
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+                {
+                    <div class="u-form-group u-form-name">
+                        <label for="username-a30d" class="u-label"><span>*</span>@Html.DisplayNameFor(x => x.account)</label>
+                        @Html.TextBoxFor(x => x.account, new { type = "text" ,placeholder="輸入帳號", id="username-a30d", @class="u-input u-input-rectangle",
+                        required = "", onfocus = "clearErrorMessage()"})
+                </div>
+                <div class="u-form-group">
+                    <label for="password-a30d" class="u-label"><span>*</span>@Html.DisplayNameFor(x => x.password)</label>
+                    @Html.TextBoxFor(x => x.password, new { id = "password-a30d",@class= "u-input u-input-rectangle",
+                                        required = "true", type = "password",onfocus = "clearErrorMessage()"})
+                    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                    {
+                        <br />
+                        <span id="error-message" style="color: crimson;">@ViewBag.ErrorMessage</span>
+                    }
+                </div>
+                <br />
+                <div class="u-align-center u-form-group u-form-submit">
+                    <button type="submit" class="u-btn001">登入</button>
+                </div>
+                                }
+            </div>
+            <br />
+            <a asp-controller="Register" asp-action="Register" class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-button-style u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-2">
+                沒有帳號?
+            </a>
+        </div>
+        <button class="u-dialog-close-button u-icon u-text-grey-40 u-icon-1">
+            <svg class="u-svg-link"
+                 preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style="">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-efe9"></use>
+            </svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                       xml:space="preserve" class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-efe9">
+            <rect x="7" y="0" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="2" height="16">
+            </rect>
+            <rect x="0" y="7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="16" height="2">
+            </rect>
+            </svg>
+        </button>
+    </div>
+</section>
