@@ -1,0 +1,382 @@
+﻿@using System.Web
+@using Mdoel
+@model HotelBookingSystem.Models.DTO.Room_Data_Search
+@{
+    var data = ViewData["RoomList"] as IEnumerable<HotelBookingSystem.Models.DTO.Room_Data_Table>;
+    Layout = ViewBag.Layout;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Booking.css" media="screen">
+
+    <style>
+        .input-date {
+            width: 125px !important;
+            position: absolute;
+            top: 12px;
+        }
+
+        .input-name {
+            width: 70px !important;
+            position: absolute;
+            top: 12px;
+            right: 110px;
+        }
+
+        .btn-room {
+            width: 60px !important;
+            position: absolute;
+            top: 22px;
+            right: 0;
+        }
+
+        .date-container {
+            display: flex;
+            gap: 20px; /* 欄位間距，可調整 */
+        }
+
+            .date-container > div {
+                flex: 1; /* 兩個欄位寬度相等 */
+                min-width: 0; /* 防止內容溢出 */
+            }
+
+        .btn_sub {
+            position: relative;
+            top: 25px;
+        }
+    </style>
+}
+
+<section class="u-clearfix u-section-1" id="block-6">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-align-center u-form u-form-1">
+            @using (Html.BeginForm("Room_Data_QueryM", "Book", new { id = "RoomSearchFrom", @class = "u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form", style = "padding: 10px;" }))
+            {
+                <div class="date-container">
+                    <div class="u-form-date u-form-group u-form-partition-factor-4 u-label-top u-form-group-1">
+                        <label for="date-7e40" class="u-label">入住日期</label>
+                        <input type="text" placeholder="YYYY/MM/DD" id="date-7e40" name="ClickIn" class="u-input u-input-rectangle"
+                               data-date-format="yyyy/mm/dd">
+                    </div>
+                    <div class="u-form-date u-form-group u-form-partition-factor-4 u-label-top u-form-group-2">
+                        <label for="date-c1cd" class="u-label">退房日期</label>
+                        <input type="text" placeholder="YYYY/MM/DD" id="date-c1cd" name="ClickOut" class="u-input u-input-rectangle"
+                               data-date-format="yyyy/mm/dd">
+                    </div>
+                    <div class="u-form-group u-form-partition-factor-4 u-form-select u-label-top u-form-group-3">
+                        <label for="select-43bb" class="u-label">Dropdown</label>
+                        <div class="u-form-select-wrapper">
+                            <select id="select-43bb" name="select" class="u-input u-input-rectangle">
+                                <option data-calc="0" value="0">不分人數</option>
+                                <option value="1" data-calc="1">1人房</option>
+                                <option value="2" data-calc="2">2人房</option>
+                                <option value="3" data-calc="3">3人房</option>
+                                <option data-calc="4" value="4">4人房</option>
+                                <option data-calc="5" value="5">5人房</option>
+                                <option data-calc="6" value="6">6人房</option>
+                                <option data-calc="7" value="7">7人房</option>
+                                <option data-calc="8" value="8">8人房</option>
+                                <option data-calc="9" value="9">8人房以上</option>
+                            </select>
+                            <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
+                                 viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
+                            <polygon class="st0" points="8,12 2,4 14,4 "></polygon>
+                                                                  </svg>
+                        </div>
+                    </div>
+                    <div class="u-align-center u-form-group u-form-submit u-label-top btn_sub">
+                        <a href="@Url.Action("Room_Data_QueryM", "Book")" class="u-btn u-btn-submit u-button-style" id="Search">Submit</a>
+                        <input type="submit" value="submit" class="u-form-control-hidden">
+                    </div>
+                    <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
+                    <div class="u-form-send-error u-form-send-message">
+                        Unable to send your message. Please fix errors then try
+                        again.
+                    </div>
+                    <input type="hidden" value="" name="recaptchaResponse">
+                    <input type="hidden" name="formServices" value="6e4a0bc6-f187-083d-bf8b-30d2003867b5">
+                </div>
+            }
+        </div>
+    </div>
+</section>
+@if (data != null && data.Any())
+{
+    foreach (var Item in data)
+    {
+        <section class="u-clearfix u-section-2" id="block-10">
+            <div class="u-clearfix u-sheet u-sheet-1">
+                <div class="u-border-2 u-border-grey-75 u-container-style u-group u-group-1">
+                    <div class="u-container-layout u-container-layout-1">
+                        <div class="custom-expanded u-list u-list-1">
+                            <div class="u-repeater u-repeater-1">
+                                <div class="u-container-style u-list-item u-repeater-item u-shape-rectangle">
+                                    <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-2">
+                                        <img alt="" class="custom-expanded u-image u-image-default u-image-1" data-image-width="2000"
+                                             data-image-height="1333" src="@Url.Content("~/imageRoom/"+ Item.ImageURL)">
+                                        <div class="custom-expanded u-container-style u-group u-group-2">
+                                            <div class="u-container-layout u-container-layout-3">
+                                                <h4 class="u-text u-text-1">@Item.roomType</h4>
+                                                <a href="#popup-3ef3"
+                                                   class="u-border-1 u-border-active-palette-2-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-btn u-button-style u-dialog-link u-none u-text-palette-1-base u-btn-1">
+                                                    客房設施介紹
+                                                </a>
+                                                <p class="u-text u-text-2">
+                                                    <b style="">人數限制：</b>2人&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>房間坪數：</b>4坪<br>
+                                                    <br><b>房間床型：</b>一大床<b>房間地板：</b>超耐磨木紋地板<b>房間窗戶：</b>有窗戶床型尺寸：150公分x188公分房價已包含每房每晚服務費及稅金。
+                                                </p>
+                                                <a href=""
+                                                   class="u-border-1 u-border-black u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-btn u-btn-rectangle u-button-style u-none u-text-body-color u-text-hover-palette-2-base u-btn-2">
+                                                    更都內容
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="u-align-center u-table u-table-responsive u-table-1">
+                            <table class="u-table-entity">
+                                <colgroup>
+                                    <col width="36.7%">
+                                    <col width="22.3%">
+                                    <col width="15.4%">
+                                    <col width="13.9%">
+                                    <col width="11.7%">
+                                </colgroup>
+                                <tbody class="u-table-body">
+                                    <tr style="height: 47px;">
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"> 優惠內容</td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"> 每晚均價</td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell">入住日期 </td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"> 房間數</td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-5"> 總價</td>
+                                    </tr>
+                                    <tr style="height: 154px;">
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"> 商務二小床房/【不可取消專案】附贈早餐</td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-10"></td>
+                                    </tr>
+                                    <tr style="height: 157px;">
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-11"> 商務二小床房/【一般訂房】附贈早餐</td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-12"></td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-15"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="u-container-style u-group u-group-3">
+                            <div class="u-container-layout">
+                                <p class="u-text u-text-default u-text-3">
+                                    <span class="u-file-icon u-icon"><img src="~/images/2645890.png" alt=""></span>&nbsp;​本日最低價
+                                </p>
+                                <p class="u-text u-text-default u-text-palette-2-base u-text-4">NT$@($"{Item.price:N0}")</p>
+                                <p class="u-text u-text-default u-text-5">元</p>
+                                <p class="u-text u-text-default u-text-6"> 含稅及服務費</p>
+                            </div>
+                        </div>
+                        <div class="u-container-style u-group u-group-4">
+                            <div class="u-container-layout">
+                                <p class="u-text u-text-default u-text-7">
+                                    <span class="u-file-icon u-icon"><img src="~/images/2645890.png" alt=""></span>&nbsp;​本日最低價
+                                </p>
+                                <p class="u-text u-text-default u-text-palette-2-base u-text-8">NT$@($"{Item.price:N0}")</p>
+                                <p class="u-text u-text-default u-text-9">元</p>
+                                <p class="u-text u-text-default u-text-10"> 含稅及服務費</p>
+                            </div>
+                        </div>
+                        <div class="u-container-style u-group u-group-5">
+                            <div class="u-container-layout u-container-layout-6">
+                                <div class="u-form u-form-1">
+                                    <form action="@Url.Action("ShoppingCart", "Book")" method="post">
+                                        <input type="hidden" name="roomId" value="@Item.RoomId" />
+                                        <div class="u-form-date u-form-group u-label-none u-form-group-1">
+                                            <label for="date-254b" class="u-label">Date</label>
+                                            <input type="text" placeholder="YYYY/MM/DD" id="date-254b" name="date"
+                                                   class="u-border-none u-input u-input-rectangle u-radius u-input-1  input-date" data-date-format="yyyy/mm/dd"
+                                                   required="required">
+                                        </div>
+                                        <div class="u-form-group u-form-number u-form-number-layout-number u-label-none u-form-group-2">
+                                            <label for="number-8a57" class="u-label">Number Input</label>
+                                            <select id="select-43bb" name="select" class="u-input u-input-rectangle input-name">
+                                                <option value="1" data-calc="1">1</option>
+                                                <option value="2" data-calc="2">2</option>
+                                                <option value="3" data-calc="3">3</option>
+                                                <option data-calc="4" value="4">4</option>
+                                                <option data-calc="5" value="5">5</option>
+                                                <option data-calc="6" value="6">6</option>
+                                                <option data-calc="7" value="7">7</option>
+                                                <option data-calc="8" value="8">8</option>
+                                                <option data-calc="9" value="9">8以上</option>
+                                            </select>
+                                        </div>
+                                        <div class="u-align-center u-form-group u-form-submit u-label-none">
+                                            <button type="submit" class="btn-room">訂房</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="u-container-style u-group u-group-6">
+                            <div class="u-container-layout u-container-layout-7">
+                                <div class="u-form u-form-2">
+                                    <form asp-controller="Booking" asp-action="ShoppingCart" method="post">
+                                        <input type="hidden" name="roomId" value="@Item.RoomId" />
+                                        <div class="u-form-date u-form-group u-label-none u-form-group-1">
+                                            <label for="date-254b" class="u-label">Date</label>
+                                            <input type="text" placeholder="YYYY/MM/DD" id="date-254b" name="date"
+                                                   class="u-border-none u-input u-input-rectangle u-radius u-input-1  input-date" data-date-format="yyyy/mm/dd"
+                                                   required="required">
+                                        </div>
+                                        <div class="u-form-group u-form-number u-form-number-layout-number u-label-none u-form-group-2">
+                                            <label for="number-8a57" class="u-label">Number Input</label>
+                                            <select id="select-43bb" name="select" class="u-input u-input-rectangle input-name">
+                                                <option value="1" data-calc="1">1</option>
+                                                <option value="2" data-calc="2">2</option>
+                                                <option value="3" data-calc="3">3</option>
+                                                <option data-calc="4" value="4">4</option>
+                                                <option data-calc="5" value="5">5</option>
+                                                <option data-calc="6" value="6">6</option>
+                                                <option data-calc="7" value="7">7</option>
+                                                <option data-calc="8" value="8">8</option>
+                                                <option data-calc="9" value="9">8以上</option>
+                                            </select>
+                                        </div>
+                                        <div class="u-align-center u-form-group u-form-submit u-label-none">
+                                            <button type="submit" class="btn-room">訂房</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <br />
+    }
+}
+
+
+<section class="u-black u-clearfix u-container-style u-dialog-block u-opacity u-opacity-70 u-dialog-section-8"
+         id="popup-3ef3">
+    <div class="u-align-center u-container-style u-dialog u-white u-dialog-1">
+        <div class="u-container-layout u-container-layout-1">
+            <div class="u-container-style u-expanded-width u-group u-palette-1-light-3 u-group-1">
+                <div class="u-container-layout u-valign-middle u-container-layout-2">
+                    <h4 class="u-text u-text-default u-text-palette-1-dark-1 u-text-1"> 房間設施</h4>
+                </div>
+            </div>
+            <div class="u-container-style u-group u-group-2">
+                <div class="u-container-layout">
+                    <span class="u-file-icon u-icon u-icon-1"><img src="~/images/13936.png" alt=""></span>
+                    <p class="u-text u-text-default u-text-2"> 電話</p>
+                </div>
+            </div>
+            <div class="u-container-style u-group u-group-3">
+                <div class="u-container-layout">
+                    <span class="u-file-icon u-icon u-icon-2"><img src="~/images/240745.png" alt=""></span>
+                    <p class="u-text u-text-default u-text-3"> 淋浴</p>
+                </div>
+            </div>
+            <div class="u-container-style u-group u-group-4">
+                <div class="u-container-layout">
+                    <span class="u-file-icon u-icon u-icon-3"><img src="~/images/10115194.png" alt=""></span>
+                    <p class="u-text u-text-default u-text-4"> 吹風機</p>
+                </div>
+            </div>
+            <div class="u-container-style u-group u-group-5">
+                <div class="u-container-layout">
+                    <span class="u-file-icon u-icon u-icon-4"><img src="~/images/2502273.png" alt=""></span>
+                    <p class="u-text u-text-default u-text-5"> 冷氣</p>
+                </div>
+            </div>
+            <div class="u-container-style u-group u-group-6">
+                <div class="u-container-layout">
+                    <span class="u-file-icon u-icon u-icon-5"><img src="~/images/1961094.png" alt=""></span>
+                    <p class="u-text u-text-default u-text-6"> 冷氣</p>
+                </div>
+            </div>
+            <div class="u-container-style u-group u-group-7">
+                <div class="u-container-layout">
+                    <span class="u-file-icon u-icon u-icon-6"><img src="~/images/2859724.png" alt=""></span>
+                    <p class="u-text u-text-default u-text-7"> 上網設備</p>
+                </div>
+            </div>
+            <div class="u-container-style u-group u-group-8">
+                <div class="u-container-layout">
+                    <span class="u-file-icon u-icon u-icon-7"><img src="~/images/1961265.png" alt=""></span>
+                    <p class="u-text u-text-default u-text-8">煮水壺 </p>
+                </div>
+            </div>
+        </div>
+        <button class="u-dialog-close-button u-icon u-text-grey-40 u-icon-8">
+            <svg class="u-svg-link"
+                 preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style="">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-efe9"></use>
+            </svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                       xml:space="preserve" class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-efe9">
+            <rect x="7" y="0" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="2" height="16">
+                  </rect>
+            <rect x="0" y="7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="16" height="2">
+                  </rect>
+                </svg>
+        </button>
+    </div>
+</section>
+@* @await Html.PartialAsync("_Room_Table", Model) *@
+
+@section Scripts {
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <script>
+            alert('@Html.Raw(HttpUtility.JavaScriptStringEncode(TempData["ErrorMessage"].ToString()))');
+        </script>
+    }
+
+    <script>
+               $(function () {
+            $('#RoomSearchFrom').on('submit', function (e) {
+                e.preventDefault(); // 阻止表單預設提交
+                var $form = $(this);
+                var url = $form.attr('action');
+                var data = $form.serialize();
+                var $searchButton = $('#Search');
+
+                $searchButton.prop('disabled', true); // 禁用按鈕
+                $('#block-10').show(); // 顯示載入動畫
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: data,
+                    dataType: 'html',
+                    cache: false,
+                    success: function (response) {
+                        $('#QueryData').html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX request failed:", status, error);
+                        toastr.error("發生錯誤，請稍後再試！");
+                    },
+                    complete: function () {
+                        $searchButton.prop('disabled', false); // 重新啟用按鈕
+                        $('#block-10').hide(); // 隱藏載入動畫
+                    }
+                });
+            });
+
+            // 如果您想保留按鈕點擊觸發表單提交，可以加上：
+            $('#Search').click(function () {
+                $('#RoomSearchFrom').submit();
+            });
+        });
+
+    </script>
+}

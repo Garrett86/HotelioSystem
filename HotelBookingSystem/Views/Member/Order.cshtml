@@ -1,0 +1,301 @@
+﻿@{
+    Layout = ViewBag.Layout;
+}
+
+<header>
+    <link rel="stylesheet" href="~/css/Order.css" media="screen">
+</header>
+
+    <section class="u-border-2 u-border-grey-75 u-clearfix u-grey-10 u-section-1" id="block-10">
+        <div class="u-clearfix u-sheet u-sheet-1">
+            <div class="u-container-style u-group u-group-1">
+                <div class="u-container-layout u-container-layout-1">
+                <a asp-area="" asp-controller="Member" asp-action="Member" data-page-id="42920733"
+                       class="u-border-none u-btn u-button-style u-hover-white u-text-body-color u-text-hover-palette-4-dark-2 u-white u-btn-1"
+                       title="Login">帳戶資訊 </a>
+                <a asp-area="" asp-controller="Member" asp-action="Order" data-page-id="234216684"
+                       class="u-active-white u-border-2 u-border-grey-25 u-border-hover-grey-25 u-btn u-button-style u-palette-4-dark-2 u-text-hover-white u-btn-2"
+                       title="Page2">我的訂單 </a>
+                <a asp-area="" asp-controller="Member" asp-action="Bonding" data-page-id="52192971"
+                       class="u-border-2 u-border-grey-25 u-border-hover-grey-25 u-btn u-button-style u-hover-white u-text-hover-palette-4-dark-2 u-white u-btn-3"
+                       title="Page3">帳戶綁定 </a>
+                    <a href=""
+                       class="u-border-2 u-border-grey-25 u-border-hover-grey-25 u-btn u-button-style u-hover-white u-text-hover-palette-4-dark-2 u-white u-btn-4">
+                        登出
+                    </a>
+                </div>
+            </div>
+            <h4 class="u-text u-text-default u-text-1">訂單管理</h4>
+            <div class="custom-expanded u-tab-links-align-left u-tabs u-tabs-1">
+                <ul class="u-border-2 u-border-palette-1-base u-spacing-10 u-tab-list u-unstyled" role="tablist">
+                    <li class="u-tab-item" role="presentation">
+                        <a class="active u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-1"
+                           id="link-tab-0da5" href="#tab-0da5" role="tab" aria-controls="tab-0da5" aria-selected="true">所有訂單</a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-2"
+                           id="link-tab-14b7" href="#tab-14b7" role="tab" aria-controls="tab-14b7" aria-selected="false">待繳款訂單 </a>
+                    </li>
+                    <li class="u-tab-item" role="presentation">
+                        <a class="u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-3"
+                           id="link-tab-2917" href="#tab-2917" role="tab" aria-controls="tab-2917" aria-selected="false">訂房完成</a>
+                    </li>
+                    <li class="u-tab-item u-tab-item-4" role="presentation">
+                        <a class="u-active-palette-1-base u-button-style u-grey-10 u-tab-link u-text-active-white u-text-black u-tab-link-4"
+                           id="tab-93fc" href="#link-tab-93fc" role="tab" aria-controls="link-tab-93fc"
+                           aria-selected="false">取消訂單</a>
+                    </li>
+                </ul>
+                <div class="u-tab-content">
+                    <div class="u-container-style u-tab-active u-tab-pane u-white u-tab-pane-1" id="tab-0da5" role="tabpanel"
+                         aria-labelledby="link-tab-0da5">
+                        <div class="u-container-layout u-valign-top u-container-layout-2">
+                            <h4 class="u-text u-text-default u-text-2">Basic Settings</h4>
+                            <div class="u-expanded-width u-table u-table-responsive u-table-1">
+                                <table class="u-table-entity">
+                                    <colgroup>
+                                        <col width="25%">
+                                        <col width="25%">
+                                        <col width="25%">
+                                        <col width="25%">
+                                    </colgroup>
+                                    <tbody class="u-table-alt-grey-5 u-table-body">
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Column 1</td>
+                                            <td class="u-table-cell">Column 2</td>
+                                            <td class="u-table-cell">Column 3</td>
+                                            <td class="u-table-cell">Column 4</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 1</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 2</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 3</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 52px;">
+                                            <td class="u-table-cell">Row 4</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="u-align-left u-container-align-left u-container-style u-tab-pane u-white u-tab-pane-2"
+                         id="tab-14b7" role="tabpanel" aria-labelledby="link-tab-14b7">
+                        <div class="u-container-layout u-container-layout-3">
+                            <h4 class="u-text u-text-default u-text-3">Basic Settings</h4>
+                            <div class="u-expanded-width u-table u-table-responsive u-table-2">
+                                <table class="u-table-entity">
+                                    <colgroup>
+                                        <col width="25%">
+                                        <col width="25%">
+                                        <col width="25%">
+                                        <col width="25%">
+                                    </colgroup>
+                                    <tbody class="u-table-alt-grey-5 u-table-body">
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Column 1</td>
+                                            <td class="u-table-cell">Column 2</td>
+                                            <td class="u-table-cell">Column 3</td>
+                                            <td class="u-table-cell">Column 4</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 1</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 2</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 3</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 52px;">
+                                            <td class="u-table-cell">Row 4</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-tab-pane u-white u-tab-pane-3" id="tab-2917" role="tabpanel"
+                         aria-labelledby="link-tab-2917">
+                        <div class="u-container-layout u-container-layout-4">
+                            <h4 class="u-text u-text-default u-text-4">Basic Settings</h4>
+                            <div class="u-expanded-width u-table u-table-responsive u-table-3">
+                                <table class="u-table-entity">
+                                    <colgroup>
+                                        <col width="25%">
+                                        <col width="25%">
+                                        <col width="25%">
+                                        <col width="25%">
+                                    </colgroup>
+                                    <tbody class="u-table-alt-grey-5 u-table-body">
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Column 1</td>
+                                            <td class="u-table-cell">Column 2</td>
+                                            <td class="u-table-cell">Column 3</td>
+                                            <td class="u-table-cell">Column 4</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 1</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 2</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 3</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 52px;">
+                                            <td class="u-table-cell">Row 4</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="u-container-style u-tab-pane u-white u-tab-pane-4" id="link-tab-93fc" role="tabpanel"
+                         aria-labelledby="tab-93fc">
+                        <div class="u-container-layout u-container-layout-5">
+                            <h4 class="u-text u-text-default u-text-5">Basic Settings</h4>
+                            <div class="u-expanded-width u-table u-table-responsive u-table-4">
+                                <table class="u-table-entity">
+                                    <colgroup>
+                                        <col width="25%">
+                                        <col width="25%">
+                                        <col width="25%">
+                                        <col width="25%">
+                                    </colgroup>
+                                    <tbody class="u-table-alt-grey-5 u-table-body">
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Column 1</td>
+                                            <td class="u-table-cell">Column 2</td>
+                                            <td class="u-table-cell">Column 3</td>
+                                            <td class="u-table-cell">Column 4</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 1</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 2</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 51px;">
+                                            <td class="u-table-cell">Row 3</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                        <tr style="height: 52px;">
+                                            <td class="u-table-cell">Row 4</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                            <td class="u-table-cell">Description</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="u-black u-clearfix u-container-style u-dialog-block u-opacity u-opacity-70 u-dialog-section-9"
+         id="popup-5f95">
+    <div class="u-align-center u-container-style u-dialog u-grey-15 u-dialog-1">
+        <div class="u-container-layout u-container-layout-1">
+            <div class="u-container-style u-expanded-width u-group u-palette-1-dark-1 u-group-1">
+                <div class="u-container-layout u-container-layout-2">
+                    <h4 class="u-text u-text-1">登入</h4>
+                </div>
+            </div>
+            <div class="u-form u-form-1">
+                <form action="https://forms.nicepagesrv.com/v2/form/process"
+                      class="u-clearfix u-form-spacing-20 u-form-vertical u-inner-form" source="email" name="form-2"
+                      style="padding: 5px;">
+                    <div class="u-form-group u-form-name">
+                        <label for="name-624b" class="u-label">帳號*</label>
+                        <input type="text" placeholder="輸入帳號" id="name-624b" name="name" class="u-input u-input-rectangle"
+                               required="">
+                    </div>
+                    <div class="u-form-group">
+                        <label for="email-624b" class="u-label">密碼*</label>
+                        <input placeholder="輸入密碼" id="email-624b" name="password" class="u-input u-input-rectangle"
+                               required="required" type="text">
+                    </div>
+                    <div class="u-align-center u-form-group u-form-submit">
+                        <a href="#" class="u-border-none u-btn u-btn-submit u-button-style u-palette-1-dark-1 u-btn-1">登入 </a>
+                        <input type="submit" value="submit" class="u-form-control-hidden">
+                    </div>
+                    <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
+                    <div class="u-form-send-error u-form-send-message">
+                        Unable to send your message. Please fix errors then try
+                        again.
+                    </div>
+                    <input type="hidden" value="" name="recaptchaResponse">
+                    <input type="hidden" name="formServices" value="6e4a0bc6-f187-083d-bf8b-30d2003867b5">
+                </form>
+            </div>
+            <a href=""
+               class="u-active-none u-border-2 u-border-active-palette-2-dark-1 u-border-hover-palette-2-base u-border-no-left u-border-no-right u-border-no-top u-border-palette-1-base u-btn u-button-style u-hover-none u-none u-text-hover-palette-2-base u-text-palette-1-base u-btn-2">
+                沒有帳號?
+            </a>
+        </div>
+        <button class="u-dialog-close-button u-icon u-text-grey-40 u-icon-1">
+            <svg class="u-svg-link"
+                 preserveAspectRatio="xMidYMin slice" viewBox="0 0 16 16" style="">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-efe9"></use>
+            </svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                       xml:space="preserve" class="u-svg-content" viewBox="0 0 16 16" x="0px" y="0px" id="svg-efe9">
+            <rect x="7" y="0" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="2" height="16">
+          </rect>
+            <rect x="0" y="7" transform="matrix(0.7071 -0.7071 0.7071 0.7071 -3.3138 8.0002)" width="16" height="2">
+          </rect>
+        </svg>
+        </button>
+    </div>
+</section>
