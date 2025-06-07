@@ -1,6 +1,6 @@
 ﻿using Dapper;
-using HotelBookingSystem.Data;
 using HotelBookingSystem.Data.Entities;
+using HotelBookingSystem.Models.DB;
 using HotelBookingSystem.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;

@@ -4,7 +4,12 @@ namespace HotelBookingSystem.Models.ViewModel
 {
     public class RoomSearchViewModel
     {
-        public Member_Data_Search MemberSearch { get; set; }
-        public IEnumerable<Room_Data_Table> RoomList { get; set; }
+        /// <summary>
+        /// page
+        /// </summary>
+        public int Page { get; set; }
+
+        public int PageSize { get; set; }
+        public IEnumerable<Room> Items { get; set; }
     }
 }

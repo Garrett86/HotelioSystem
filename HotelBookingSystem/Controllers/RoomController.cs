@@ -7,8 +7,8 @@ namespace HotelBookingSystem.Controllers
 {
     public class RoomController : Controller
     {
-        private readonly IRoomRepository _room;
-        public RoomController(IRoomRepository room)
+        private readonly IRoomService _room;
+        public RoomController(IRoomService room)
         {
             _room = room;
         }

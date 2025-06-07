@@ -1,4 +1,6 @@
-﻿namespace HotelBookingSystem.Data.Repositories
+﻿using HotelBookingSystem.Models.DB;
+
+namespace HotelBookingSystem.Data.Repositories
 {
     public class HotelBookingRepository<TEntity, TId> : BaseRepository<TEntity, TId>, IHotelBookingRepository<TEntity, TId> where TEntity : class
     {

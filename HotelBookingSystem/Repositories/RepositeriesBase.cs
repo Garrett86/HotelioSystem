@@ -2,25 +2,25 @@
 using HotelBookingSystem.Models.DB;
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelBookingSystem.Services
+namespace HotelBookingSystem.Repositories
 {
-    public class ServiceBase<T> where T :class,new()
+    public class RepositeriesBase<T> where T : class, new()
     {
         protected readonly HotelBookingDbContext db;
 
-        public ServiceBase(HotelBookingDbContext context)
+        public RepositeriesBase(HotelBookingDbContext context)
         {
-            db = context ?? throw new ArgumentNullException(nameof(context));
+            this.db = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        protected List<T> ExecuteQuery<T>(string sql, object parameters = null)
+        protected async Task <List<T>> ExecuteQuery<T>(string sql, object parameters = null)
         {
             try
             {
                 using (var conn = db.Database.GetDbConnection())
                 {
-                    conn.Open();
-                    var result = conn.Query<T>(sql, parameters);
+                    await conn.OpenAsync();
+                    var result = await conn.QueryAsync<T>(sql, parameters);
                     return result.AsList();
                 }
             }
@@ -30,6 +30,5 @@ namespace HotelBookingSystem.Services
                 throw new ApplicationException("資料庫查詢失敗", ex);
             }
         }
-
     }
 }

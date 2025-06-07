@@ -3,6 +3,9 @@ using HotelBookingSystem.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.Contracts;
 using Microsoft.EntityFrameworkCore;
+using HotelBookingSystem.Services.RoomService;
+using HotelBookingSystem.Services.RootService;
+using HotelBookingSystem.Models.ViewModel;
 
 namespace HotelBookingSystem.Controllers
 {
@@ -10,11 +13,12 @@ namespace HotelBookingSystem.Controllers
 [Route("api/Root")]
     public class RootController : OrderBaseController
     {
-        private readonly HotelBookingDbContext _dbContext;
 
-        public RootController(HotelBookingDbContext dbContext)
+        private readonly IRootService _root;
+
+        public RootController(IRootService root)
         {
-            _dbContext = dbContext;
+            _root = root;
         }
 
         [HttpGet("rootpage")]
@@ -24,37 +28,10 @@ namespace HotelBookingSystem.Controllers
         }
 
         [HttpGet("SearchByRoom")]
-        public async Task<IActionResult> GetAllRoom([FromQuery] int page, [FromQuery] int pageSize)
+        public async Task<ActionResult<RoomSearchViewModel>> GetAllRoom([FromQuery] int page, [FromQuery] int pageSize)
         {
-            try
-            {
-                if (page <= 0) page = 1;
-                if (pageSize <= 0) pageSize = 10;
-
-                var query = _dbContext.Rooms.Where(r => r.vacantRoom != 1);
-
-                var data = await query
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToListAsync();
-
-                var result = new
-                {
-                    Page = page,
-                    PageSize = pageSize,
-                    Items = data
-                };
-
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                // 記錄錯誤，方便除錯
-                // 例如使用日誌工具：_logger.LogError(ex, "Error loading rooms");
-                return StatusCode(500, new { message = "Internal server error", detail = ex.Message });
-            }
+            var result = await _root.GetAllRoom(page, pageSize);
+            return Ok(result);
         }
-
-
     }
 }

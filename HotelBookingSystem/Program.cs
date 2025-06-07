@@ -1,7 +1,9 @@
-using HotelBookingSystem.Data;
 using HotelBookingSystem.Data.Repositories;
+using HotelBookingSystem.Models.DB;
+using HotelBookingSystem.Repositories.RoomRepositories;
 using HotelBookingSystem.Services.Hotel;
 using HotelBookingSystem.Services.RoomService;
+using HotelBookingSystem.Services.RootService;
 using HotelBookingSystem.Services.TextFileLogger;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,7 +42,9 @@ builder.Services.AddDbContext<HotelBookingDbContext>(options =>
 
 builder.Services.AddScoped(typeof(IHotelBookingRepository<,>), typeof(HotelBookingRepository<,>));
 builder.Services.AddScoped<IMemberRepository, MemberService>();
-builder.Services.AddScoped<IRoomRepository, RoomService>();
+builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+builder.Services.AddScoped<IRootService, RootService>();
 
 
 // µù¥U AutoMapper ¨Ã¸ü¤J MappingProfile

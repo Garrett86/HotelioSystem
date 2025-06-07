@@ -9,9 +9,9 @@ namespace HotelBookingSystem.Controllers
 {
     public class BookController : OrderBaseController
     {
-        private readonly IRoomRepository _room;
+        private readonly IRoomService _room;
 
-        public BookController(IRoomRepository roomRepository)
+        public BookController(IRoomService roomRepository)
         {
             _room = roomRepository;
         }

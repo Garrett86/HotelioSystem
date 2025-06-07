@@ -1,5 +1,5 @@
-﻿using HotelBookingSystem.Data;
-using HotelBookingSystem.Data.Entities;
+﻿using HotelBookingSystem.Models;
+using HotelBookingSystem.Models.DB;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelBookingSystem.Services.CodeItemService

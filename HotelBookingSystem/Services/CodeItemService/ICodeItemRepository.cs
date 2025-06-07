@@ -1,4 +1,4 @@
-﻿using HotelBookingSystem.Data.Entities;
+﻿using HotelBookingSystem.Models;
 
 namespace HotelBookingSystem.Services.CodeItemService
 {

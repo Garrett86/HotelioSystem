@@ -1,5 +1,4 @@
 using HotelBookingSystem.Data;
-using HotelBookingSystem.Data.Entities;
 using HotelBookingSystem.Data.Repositories;
 using HotelBookingSystem.Models;
 using Microsoft.AspNetCore.Mvc;
