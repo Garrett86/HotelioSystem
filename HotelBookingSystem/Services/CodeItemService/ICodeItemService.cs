@@ -2,8 +2,8 @@
 
 namespace HotelBookingSystem.Services.CodeItemService
 {
-    public interface ICodeItemRepository
+    public interface ICodeItemService
     {
-        Task<List<CodeItem>> GetgenderByID();
+        Task<IEnumerable<CodeItem>> GetCodeItemById();
     }
 }

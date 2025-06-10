@@ -31,5 +31,11 @@ namespace HotelBookingSystem.Services
             }
         }
 
+        /// <summary>
+        /// 如果找不到的話會回傳一個空物件
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public T GetDataOrDefaultByPKey(params object[] ID) => db.Set<T>().Find(ID) ?? Activator.CreateInstance<T>();//簡寫fun 
     }
 }

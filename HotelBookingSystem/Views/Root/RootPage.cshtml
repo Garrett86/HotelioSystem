@@ -1,42 +1,16 @@
-﻿@model HotelBookingSystem.Models.DTO.Member_Data_Search
-@{
+﻿@{
     Layout = ViewBag.Layout;
 }
 
-@section Styles{
-    <style>
-        #myTable {
-            margin-left: auto;
-            margin-right: auto;
-            width: auto;
-            /* 依內容自動調整寬度 */
-            border-collapse: collapse;
-        }
-
-        table,
-        th,
-        td {
-            border: 1px solid black;
-            /* 黑色實線邊框 */
-            border-collapse: collapse;
-            /* 合併邊框，避免雙線 */
-            margin: 10px auto 10px;
-        }
-
-        th,
-        td {
-            width: 110px;
-            text-align: center;
-        }
-    </style>
-}
-
-<section class="u-clearfix u-section-1" id="block-6">
-    <div class="container">
-        <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
-                <div id="table-container">
+<main class="col-md-10 d-flex justify-content-center align-items-start mt-4">
+    <div class="wrapper wrapper-content" style="width: 100%; max-width: 1000px;">
+        <!-- 房間作業內容 -->
+        <div id="content-room">
+            <div class="ibox-title">
+                <h5 class="ibox-title-name">房間作業</h5>
+            </div>
+            <div class="ibox-content">
+                <div id="table-container" style="max-height: 600px; overflow-y: auto;">
                     <table id="myTable" class="table table-bordered table-striped text-center">
                         <thead>
                             <tr>
@@ -56,11 +30,13 @@
                     </table>
                 </div>
             </div>
-            <div class="col-4"></div>
         </div>
     </div>
-</section>
+</main>
 
-@section Scripts{
+@section Scripts {
+    <script>
+        const getByIdRoomUrlTemplate = '@Url.Action("GetByIdRoom", "Root", new { id = "__id__" })';
+    </script>
     <script src="~/js/RootInfinite.js"></script>
 }

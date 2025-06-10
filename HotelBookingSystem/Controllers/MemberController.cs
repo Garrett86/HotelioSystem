@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DTO;
+using HotelBookingSystem.Services.CodeItemService;
 using HotelBookingSystem.Services.Hotel;
 using HotelBookingSystem.Services.TextFileLogger;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +14,14 @@ namespace HotelBookingSystem.Controllers
         private readonly IMemberRepository _memberRepository;
         private readonly IMapper _mapper;
         private readonly ITextFileLogger _textFileLogger;
-        public MemberController(IMemberRepository repository, IMapper mapper, ITextFileLogger textFileLogger)
+        private readonly ICodeItemService _codeItem;
+        public MemberController(IMemberRepository repository, IMapper mapper, ITextFileLogger textFileLogger,
+            ICodeItemService codeItem)
         {
             _memberRepository = repository;
             _mapper = mapper;
             _textFileLogger = textFileLogger;
+            _codeItem = codeItem;
         }
         public async Task<IActionResult> Member()
         {
@@ -32,6 +37,8 @@ namespace HotelBookingSystem.Controllers
 
                         // 使用 AutoMapper 將 Entity 映射成 DTO
                         member = _mapper.Map<Member_Data_Edit>(memberEntity);
+                        var item = await _codeItem.GetCodeItemById();
+                        ViewData["codeItem"] = item;
                     }
                     catch (AutoMapperMappingException ex)
                     {

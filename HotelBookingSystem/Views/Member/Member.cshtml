@@ -1,6 +1,8 @@
-﻿@model HotelBookingSystem.Models.DTO.Member_Data_Edit
+﻿@using System.Collections
+@model HotelBookingSystem.Models.DTO.Member_Data_Edit
 @{
     Layout = ViewBag.Layout;
+    var items = ViewData["codeItem"] as IEnumerable<CodeItem>;
 }
 @section Styles {
     <link rel="stylesheet" href="~/css/Member.css" media="screen">
@@ -47,66 +49,62 @@
                         <div class="u-form-group u-form-input-layout-horizontal u-form-partition-factor-2 u-form-radiobutton u-label-top u-form-group-4">
                             <label class="u-label">@Html.DisplayNameFor(x => x.gender)</label>
                             <div class="u-form-radio-button-wrapper">
-                                <div class="u-input-row">
-                                    <input id="field-efc1" type="radio" name="gender" value="1" class="u-field-input" checked="checked" data-calc="1">
-                                    <label class="u-field-label" for="field-efc1">先生</label>
-                                </div>
-                                <div class="u-input-row">
-                                    <input id="field-b0b5" type="radio" name="gender" value="2" class="u-field-input" data-calc="2">
-                                    <label class="u-field-label" for="field-b0b5">小姐</label>
-                                </div>
-                                <div class="u-input-row">
-                                    <input id="field-8245" type="radio" name="gender" value="3" class="u-field-input" data-calc="3">
-                                    <label class="u-field-label" for="field-8245">中性</label>
-                                </div>
+                                @foreach (var item in items)
+                                {
+                                    <div class="u-input-row">
+                                        @Html.RadioButtonFor(x => x.gender, item.ItemValue, new {
+                                        id = "field-" + item.ItemValue,@class = "u-field-input",data_calc = item.ItemValue,})
+                                <label class="u-field-label" for="field-@item.ItemValue">@item.ItemText</label>
                             </div>
+                                                        }
                         </div>
-                        <div class="u-form-email u-form-group u-form-partition-factor-2 u-label-top">
-                            <label for="email-2ef0" class="u-label">@Html.DisplayNameFor(x => x.email)</label>
-                            @Html.TextBoxFor(x => x.email, new { type = "email", placeholder = "Enter a valid email address", id = "email-2ef0" ,@class= "u-input u-input-rectangle" ,required = "" ,maxlength = "50"})
-                        </div>
-                        <div class="u-form-group u-form-partition-factor-2 u-label-top u-form-group-6">
-                            <label for="text-83b8" class="u-label">@Html.DisplayNameFor(x => x.phone)</label>
-                            @Html.TextBoxFor(x => x.phone, new { @class= "u-input u-input-rectangle",type = "text" ,placeholder = "" ,id = "text-83b8" })
-                        </div>
-                        <div class="u-form-group u-label-top u-form-group-7">
-                            <label for="text-5801" class="u-label">@Html.DisplayNameFor(x =>x.birthday)</label>
-                            @Html.TextBoxFor(x => x.birthday, new { id = "date-254b", @class = "u-border-none u-input u-input-rectangle u-radius u-input-1  input-date", type = "text", placeholder = "YYYY/MM/DD", data_date_format = "yyyy/mm/dd", @required = true})
-                        </div>
-                        <p class="u-form-group u-form-text u-label-top u-text u-text-1">國籍城市 </p>
-                        <div class="u-form-group u-form-partition-factor-2 u-form-select u-label-top u-form-group-9">
-                            <label for="select-796a" class="u-form-control-hidden u-label"></label>
-                            <div class="u-form-select-wrapper">
-                                <select id="select-796a" name="nationality" asp-for="nationality" asp-items="Model.NationalityOptions" class="u-input u-input-rectangle">
-                                </select>
+                    </div>
+                    <div class="u-form-email u-form-group u-form-partition-factor-2 u-label-top">
+                        <label for="email-2ef0" class="u-label">@Html.DisplayNameFor(x => x.email)</label>
+                        @Html.TextBoxFor(x => x.email, new { type = "email", placeholder = "Enter a valid email address", id = "email-2ef0", @class = "u-input u-input-rectangle", required = "", maxlength = "50" })
+                    </div>
+                    <div class="u-form-group u-form-partition-factor-2 u-label-top u-form-group-6">
+                        <label for="text-83b8" class="u-label">@Html.DisplayNameFor(x => x.phone)</label>
+                        @Html.TextBoxFor(x => x.phone, new { @class = "u-input u-input-rectangle", type = "text", placeholder = "", id = "text-83b8" })
+                    </div>
+                    <div class="u-form-group u-label-top u-form-group-7">
+                        <label for="text-5801" class="u-label">@Html.DisplayNameFor(x => x.birthday)</label>
+                        @Html.TextBoxFor(x => x.birthday, new { id = "date-254b", @class = "u-border-none u-input u-input-rectangle u-radius u-input-1  input-date", type = "text", placeholder = "YYYY/MM/DD", data_date_format = "yyyy/mm/dd", @required = true })
+                    </div>
+                    <p class="u-form-group u-form-text u-label-top u-text u-text-1">國籍城市 </p>
+                    <div class="u-form-group u-form-partition-factor-2 u-form-select u-label-top u-form-group-9">
+                        <label for="select-796a" class="u-form-control-hidden u-label"></label>
+                        <div class="u-form-select-wrapper">
+                            <select id="select-796a" name="nationality" asp-for="nationality" asp-items="Model.NationalityOptions" class="u-input u-input-rectangle">
+                            </select>
 
-                                <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
-                            </div>
+                            <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px" viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve"><polygon class="st0" points="8,12 2,4 14,4 "></polygon></svg>
                         </div>
-                        <div class="u-form-group u-form-partition-factor-2 u-form-select u-label-top u-form-group-10">
-                            <label for="select-9430" class="u-form-control-hidden u-label"></label>
-                            <div class="u-form-select-wrapper">
-                                <select id="select-9430" name="city" asp-for="city" asp-items="Model.CityOptions" class="u-input u-input-rectangle">
-                                </select>
-                            </div>
+                    </div>
+                    <div class="u-form-group u-form-partition-factor-2 u-form-select u-label-top u-form-group-10">
+                        <label for="select-9430" class="u-form-control-hidden u-label"></label>
+                        <div class="u-form-select-wrapper">
+                            <select id="select-9430" name="city" asp-for="city" asp-items="Model.CityOptions" class="u-input u-input-rectangle">
+                            </select>
                         </div>
-                        <div class="u-form-group u-label-none u-form-group-5">
-                            <label for="text-ef9e" class="u-label">Input</label>
-                            <input type="password" placeholder="輸入密碼" id="text-ef9e" name="password"
-                                   class="u-input u-input-rectangle" required="required">
-                            <span class="text-danger" asp-validation-for="password"></span>
-                        </div>
-                        <br />
-                        <div class="u-form-group u-label-none u-form-group-6">
-                            <label for="text-6f13" class="u-label">Input</label>
-                            <input type="password" placeholder="再次輸入密碼" id="text-6f13" name="passwordConfirm"
-                                   class="u-input u-input-rectangle" required="required">
-                            <span class="text-danger" asp-validation-for="passwordConfirm"></span>
-                        </div>
-                        <div class="u-align-center u-form-group u-form-submit btn-submit">
-                            <button type="submit" class="u-btn001">儲存 </button>
-                        </div>
-                    }
+                    </div>
+                    <div class="u-form-group u-label-none u-form-group-5">
+                        <label for="text-ef9e" class="u-label">Input</label>
+                        <input type="password" placeholder="輸入密碼" id="text-ef9e" name="password"
+                               class="u-input u-input-rectangle" required="required">
+                        <span class="text-danger" asp-validation-for="password"></span>
+                    </div>
+                    <br />
+                    <div class="u-form-group u-label-none u-form-group-6">
+                        <label for="text-6f13" class="u-label">Input</label>
+                        <input type="password" placeholder="再次輸入密碼" id="text-6f13" name="passwordConfirm"
+                               class="u-input u-input-rectangle" required="required">
+                        <span class="text-danger" asp-validation-for="passwordConfirm"></span>
+                    </div>
+                    <div class="u-align-center u-form-group u-form-submit btn-submit">
+                        <button type="submit" class="u-btn001">儲存 </button>
+                    </div>
+                                        }
                 </div>
             </div>
         </div>
