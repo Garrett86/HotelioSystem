@@ -10,24 +10,36 @@
     <link rel="stylesheet" href="~/css/Booking.css" media="screen">
 
     <style>
+        .layout-price{
+            position: absolute;
+            right: 100px;
+        }
         .input-date {
             width: 125px !important;
             position: absolute;
             top: 12px;
+            left: -130px;
+        }
+
+        .out-date {
+            width: 125px !important;
+            position: absolute;
+            top: 12px;
+            left: 20px;
         }
 
         .input-name {
             width: 70px !important;
             position: absolute;
             top: 12px;
-            right: 110px;
+            right: 90px;
         }
 
         .btn-room {
-            width: 60px !important;
+            width: 50px !important;
             position: absolute;
             top: 22px;
-            right: 0;
+            right: -12px;
         }
 
         .date-container {
@@ -66,18 +78,13 @@
                     <div class="u-form-group u-form-partition-factor-4 u-form-select u-label-top u-form-group-3">
                         <label for="select-43bb" class="u-label">Dropdown</label>
                         <div class="u-form-select-wrapper">
-                            <select id="select-43bb" name="select" class="u-input u-input-rectangle">
-                                <option data-calc="0" value="0">不分人數</option>
-                                <option value="1" data-calc="1">1人房</option>
-                                <option value="2" data-calc="2">2人房</option>
-                                <option value="3" data-calc="3">3人房</option>
-                                <option data-calc="4" value="4">4人房</option>
-                                <option data-calc="5" value="5">5人房</option>
-                                <option data-calc="6" value="6">6人房</option>
-                                <option data-calc="7" value="7">7人房</option>
-                                <option data-calc="8" value="8">8人房</option>
-                                <option data-calc="9" value="9">8人房以上</option>
-                            </select>
+                            @Html.DropDownList("capacity", new List<SelectListItem>
+                            {
+                                new SelectListItem { Text = "不分人數", Value = "0" },
+                                                new SelectListItem { Text = "2人房", Value = "2" },
+                                                new SelectListItem { Text = "3人房", Value = "3" },
+                                                new SelectListItem { Text = "4人房", Value = "4" }
+                                                }, new { @class = "u-input u-input-rectangle", id = "select-43bb" })
                             <svg class="u-caret u-caret-svg" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                  xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="16px" height="16px"
                                  viewBox="0 0 16 16" style="fill:currentColor;" xml:space="preserve">
@@ -123,7 +130,7 @@
                                                     客房設施介紹
                                                 </a>
                                                 <p class="u-text u-text-2">
-                                                    <b style="">人數限制：</b>2人&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                                    <b style="">人數限制：</b>@Item.capacity 人 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                                     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<b>房間坪數：</b>4坪<br>
                                                     <br><b>房間床型：</b>一大床<b>房間地板：</b>超耐磨木紋地板<b>房間窗戶：</b>有窗戶床型尺寸：150公分x188公分房價已包含每房每晚服務費及稅金。
                                                 </p>
@@ -140,8 +147,9 @@
                         <div class="u-align-center u-table u-table-responsive u-table-1">
                             <table class="u-table-entity">
                                 <colgroup>
-                                    <col width="36.7%">
-                                    <col width="22.3%">
+                                    <col width="29%">
+                                    <col width="16.6%">
+                                    <col width="15.4%">
                                     <col width="15.4%">
                                     <col width="13.9%">
                                     <col width="11.7%">
@@ -151,11 +159,13 @@
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"> 優惠內容</td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"> 每晚均價</td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell">入住日期 </td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell">退房日期 </td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"> 房間數</td>
-                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-5"> 總價</td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-5"> 訂房</td>
                                     </tr>
                                     <tr style="height: 154px;">
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"> 商務二小床房/【不可取消專案】附贈早餐</td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
@@ -166,13 +176,14 @@
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-12"></td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
+                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-15"></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <div class="u-container-style u-group u-group-3">
-                            <div class="u-container-layout">
+                            <div class="u-container-layout layout-price">
                                 <p class="u-text u-text-default u-text-3">
                                     <span class="u-file-icon u-icon"><img src="~/images/2645890.png" alt=""></span>&nbsp;​本日最低價
                                 </p>
@@ -182,7 +193,7 @@
                             </div>
                         </div>
                         <div class="u-container-style u-group u-group-4">
-                            <div class="u-container-layout">
+                            <div class="u-container-layout layout-price">
                                 <p class="u-text u-text-default u-text-7">
                                     <span class="u-file-icon u-icon"><img src="~/images/2645890.png" alt=""></span>&nbsp;​本日最低價
                                 </p>
@@ -195,25 +206,37 @@
                             <div class="u-container-layout u-container-layout-6">
                                 <div class="u-form u-form-1">
                                     <form action="@Url.Action("ShoppingCart", "Book")" method="post">
-                                        <input type="hidden" name="roomId" value="@Item.RoomId" />
+                                        @if (!string.IsNullOrEmpty(ViewBag.User))
+                                        {
+                                            <input type="hidden" name="UserName" value="@ViewBag.User" />
+                                        }
+                                        <input type="hidden" name="BookingId" value="@Item.RoomId" />
+                                        <input type="hidden" name="roomId" value="@Item.roomNumber" />
+                                        <input type="hidden" name="TotalAmount" value="@($"{Item.price:N0}")" />
                                         <div class="u-form-date u-form-group u-label-none u-form-group-1">
-                                            <label for="date-254b" class="u-label">Date</label>
-                                            <input type="text" placeholder="YYYY/MM/DD" id="date-254b" name="date"
+                                            <label for="CheckInDate" class="u-label">Date</label>
+                                            <input type="text" placeholder="YYYY/MM/DD" id="CheckInDate" name="CheckInDate"
                                                    class="u-border-none u-input u-input-rectangle u-radius u-input-1  input-date" data-date-format="yyyy/mm/dd"
+                                                   required="required">
+                                        </div>
+                                        <div class="u-form-date u-form-group u-label-none u-form-group-1">
+                                            <label for="CheckOutDate" class="u-label">Date</label>
+                                            <input type="text" placeholder="YYYY/MM/DD" id="CheckOutDate" name="CheckOutDate"
+                                                   class="u-border-none u-input u-input-rectangle u-radius u-input-1  out-date" data-date-format="yyyy/mm/dd"
                                                    required="required">
                                         </div>
                                         <div class="u-form-group u-form-number u-form-number-layout-number u-label-none u-form-group-2">
                                             <label for="number-8a57" class="u-label">Number Input</label>
-                                            <select id="select-43bb" name="select" class="u-input u-input-rectangle input-name">
+                                            <select id="PeopleCount" name="PeopleCount" class="u-input u-input-rectangle input-name">
                                                 <option value="1" data-calc="1">1</option>
                                                 <option value="2" data-calc="2">2</option>
                                                 <option value="3" data-calc="3">3</option>
-                                                <option data-calc="4" value="4">4</option>
-                                                <option data-calc="5" value="5">5</option>
-                                                <option data-calc="6" value="6">6</option>
-                                                <option data-calc="7" value="7">7</option>
-                                                <option data-calc="8" value="8">8</option>
-                                                <option data-calc="9" value="9">8以上</option>
+                                                <option value="4" data-calc="4">4</option>
+                                                <option value="5" data-calc="5">5</option>
+                                                <option value="6" data-calc="6">6</option>
+                                                <option value="7" data-calc="7">7</option>
+                                                <option value="8" data-calc="8">8</option>
+                                                <option value="9+" data-calc="9+">9人以上</option>
                                             </select>
                                         </div>
                                         <div class="u-align-center u-form-group u-form-submit u-label-none">
@@ -227,25 +250,33 @@
                             <div class="u-container-layout u-container-layout-7">
                                 <div class="u-form u-form-2">
                                     <form asp-controller="Booking" asp-action="ShoppingCart" method="post">
-                                        <input type="hidden" name="roomId" value="@Item.RoomId" />
+                                        <input type="hidden" name="BookingId" value="@Item.RoomId" />
+                                        <input type="hidden" name="roomId" value="@Item.roomNumber" />
+                                        <input type="hidden" name="TotalAmount" value="@Item.price" />
+                                        <input type="hidden" name="UserName" value="" />
                                         <div class="u-form-date u-form-group u-label-none u-form-group-1">
-                                            <label for="date-254b" class="u-label">Date</label>
-                                            <input type="text" placeholder="YYYY/MM/DD" id="date-254b" name="date"
+                                            <label for="CheckInDate" class="u-label">Date</label>
+                                            <input type="text" placeholder="YYYY/MM/DD" id="CheckInDate" name="CheckInDate"
                                                    class="u-border-none u-input u-input-rectangle u-radius u-input-1  input-date" data-date-format="yyyy/mm/dd"
+                                                   required="required">
+                                        </div>
+                                        <div class="u-form-date u-form-group u-label-none u-form-group-1">
+                                            <label for="CheckOutDate" class="u-label">Date</label>
+                                            <input type="text" placeholder="YYYY/MM/DD" id="CheckOutDate" name="CheckOutDate"
+                                                   class="u-border-none u-input u-input-rectangle u-radius u-input-1  out-date" data-date-format="yyyy/mm/dd"
                                                    required="required">
                                         </div>
                                         <div class="u-form-group u-form-number u-form-number-layout-number u-label-none u-form-group-2">
                                             <label for="number-8a57" class="u-label">Number Input</label>
-                                            <select id="select-43bb" name="select" class="u-input u-input-rectangle input-name">
+                                            <select id="PeopleCount" name="PeopleCount" class="u-input u-input-rectangle input-name">
                                                 <option value="1" data-calc="1">1</option>
                                                 <option value="2" data-calc="2">2</option>
                                                 <option value="3" data-calc="3">3</option>
-                                                <option data-calc="4" value="4">4</option>
-                                                <option data-calc="5" value="5">5</option>
-                                                <option data-calc="6" value="6">6</option>
-                                                <option data-calc="7" value="7">7</option>
-                                                <option data-calc="8" value="8">8</option>
-                                                <option data-calc="9" value="9">8以上</option>
+                                                <option value="4" data-calc="4">4</option>
+                                                <option value="5" data-calc="5">5</option>
+                                                <option value="6" data-calc="6">6</option>
+                                                <option value="7" data-calc="7">7</option>
+                                                <option value="8" data-calc="8">8</option>
                                             </select>
                                         </div>
                                         <div class="u-align-center u-form-group u-form-submit u-label-none">

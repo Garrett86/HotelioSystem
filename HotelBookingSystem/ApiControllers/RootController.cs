@@ -11,7 +11,7 @@ using HotelBookingSystem.Services.RootService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Contracts;
-using Action_Type = HotelBookingSystem.Services.RoomService.RoomService.Action_Type;
+using Action_Type = HotelBookingSystem.Services.Enums;
 
 namespace HotelBookingSystem.ApiControllers
 {

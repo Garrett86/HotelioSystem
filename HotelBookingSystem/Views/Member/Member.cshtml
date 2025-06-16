@@ -39,8 +39,16 @@
                     @using (Html.BeginForm("SaveModifiedMember", "Member", FormMethod.Post, new { @class = "u-clearfix u-form-spacing-10 u-form-vertical", style = "padding: 10px;" }))
                     {
                         <div class="u-form-group u-form-name u-form-partition-factor-2 u-label-top u-form-group-2">
+                            <label>@Html.DisplayNameFor(x => x.account)</label>
+                            <br />
+                            @Model.account
+                            @Html.HiddenFor(model => model.account)
+                            @Html.HiddenFor(model => model.memberid)
+                        </div>
+                        <div class="u-form-group u-form-name u-form-partition-factor-2 u-label-top u-form-group-2">
                             <label for="name-bb01" class="u-label">@Html.DisplayNameFor(x => x.firstName)</label>
                             @Html.TextBoxFor(x => x.firstName, new { id = "name-bb01", @class = "u-input u-input-rectangle", type = "text", placeholder = "Enter your Name", required = "" })
+                            @Html.HiddenFor(model => model.lastName)
                         </div>
                         <div class="u-form-group u-form-partition-factor-2 u-label-top u-form-group-3">
                             <label for="text-0090" class="u-label">@Html.DisplayNameFor(x => x.cardID)</label>
@@ -104,7 +112,7 @@
                     <div class="u-align-center u-form-group u-form-submit btn-submit">
                         <button type="submit" class="u-btn001">儲存 </button>
                     </div>
-                                        }
+                       }
                 </div>
             </div>
         </div>

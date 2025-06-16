@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HotelBookingSystem.ActionFilter;
 using HotelBookingSystem.Models.DTO;
+using HotelBookingSystem.Services.Enums;
 using HotelBookingSystem.Services.RoomService;
 using Microsoft.AspNetCore.Mvc;
 using static HotelBookingSystem.Services.RoomService.RoomService;
@@ -25,15 +26,24 @@ namespace HotelBookingSystem.Controllers
         }
 
 
-        [CheckPoint(PermissionType.Update)]
+        [HttpGet]
+        //[CheckPoint(PermissionType.Update)]
         public async Task<ActionResult<Room_Data_Edit>> GetByIdRoom(int id)
         {
-            var roomDataEdit = await Room_Data_QueryDAsync(id, Action_Type.Update);
-            if (roomDataEdit == null)
+            try
             {
-                return NotFound();
+                var roomDataEdit = await Room_Data_QueryDAsync(id, Action_Type.Update);
+                if (roomDataEdit == null)
+                {
+                    return NotFound();
+                }
+                return PartialView("_RootTable", roomDataEdit); // 傳給 View
             }
-            return View(roomDataEdit); // 傳給 View
+            catch(Exception ex)
+            {
+                return StatusCode(500, new { message = ex.Message });
+            }
+            
         }
 
         /// <summary>

@@ -6,6 +6,7 @@ using HotelBookingSystem.Repositories.RoomRepositories;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using HotelBookingSystem.Services.Enums;
 
 namespace HotelBookingSystem.Services.RoomService
 {
@@ -17,19 +18,13 @@ namespace HotelBookingSystem.Services.RoomService
             _room = roomRepository;
         }
 
-        public enum Action_Type
-        {
-            [Display(Name = "新增")]
-            Insert,
-            [Display(Name = "修改")]
-            Update,
-            [Display(Name = "刪除")]
-            Delete,
-        }
-
         public async Task<IEnumerable<Room_Data_Table>> SearchRooms(Room_Data_Search Room_Search)
         {
             var result =  await _room.SearchRooms(Room_Search);
+            if (Room_Search.capacity != 0)
+            {
+                result = result.Where(x => x.capacity == Room_Search.capacity);
+            }
 
             return result;
         }

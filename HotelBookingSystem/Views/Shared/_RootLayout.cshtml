@@ -54,14 +54,16 @@
                         使用者作業
                     </button>
                     <ul class="dropdown-menu item_color" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="/api/Root/rootpage" id="menu-room">房間作業</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("RootPage","Root")" id="menu-room">房間作業</a></li>
                         <li><a class="dropdown-item" href="#" id="menu-user">使用者作業</a></li>
                     </ul>
                 </div>
                 <a href="#" id="menu-settings">設定</a>
                 <a href="#" id="menu-logout">登出</a>
             </nav>
+            <main class="col-md-10 d-flex justify-content-center align-items-start mt-4">
             @RenderBody()
+            </main>
         </div>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -78,20 +80,6 @@
 
         flatpickr("#birthday", {
             dateFormat: "Y-m-d", // yyyy-MM-dd 格式
-        });
-
-        // 點擊房間作業，顯示房間內容，隱藏使用者內容
-        menuRoom.addEventListener('click', function (e) {
-            e.preventDefault();
-            contentRoom.style.display = 'block';
-            contentUser.style.display = 'none';
-        });
-
-        // 點擊使用者作業，顯示使用者內容，隱藏房間內容
-        menuUser.addEventListener('click', function (e) {
-            e.preventDefault();
-            contentRoom.style.display = 'none';
-            contentUser.style.display = 'block';
         });
     </script>
     @await RenderSectionAsync("Scripts", required: false)

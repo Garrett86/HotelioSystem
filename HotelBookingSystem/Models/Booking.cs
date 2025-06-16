@@ -15,16 +15,16 @@ namespace HotelBookingSystem.Models
         [Required]
         public int RoomId { get; set; }
 
-        [Required]
+        
         public DateTime CheckInDate { get; set; }
 
-        [Required]
+        
         public DateTime CheckOutDate { get; set; }
 
-        [Required]
+        
         public DateTime BookingDate { get; set; }
 
-        [Required]
+        
         public decimal TotalAmount { get; set; }
 
         public Room Room { get; set; }

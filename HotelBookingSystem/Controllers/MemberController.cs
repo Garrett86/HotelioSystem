@@ -1,27 +1,35 @@
 ﻿using AutoMapper;
 using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DTO;
+using HotelBookingSystem.Services.BookingService;
 using HotelBookingSystem.Services.CodeItemService;
-using HotelBookingSystem.Services.Hotel;
+using HotelBookingSystem.Services.MemberService;
 using HotelBookingSystem.Services.TextFileLogger;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.Threading.Tasks;
+using Action_Type = HotelBookingSystem.Services.Enums.Action_Type;
 
 
 namespace HotelBookingSystem.Controllers
 {
     public class MemberController : OrderBaseController
     {
-        private readonly IMemberRepository _memberRepository;
+        private readonly IMemberService _memberService;
         private readonly IMapper _mapper;
         private readonly ITextFileLogger _textFileLogger;
         private readonly ICodeItemService _codeItem;
-        public MemberController(IMemberRepository repository, IMapper mapper, ITextFileLogger textFileLogger,
-            ICodeItemService codeItem)
+        private readonly IConfiguration _configuration;
+        private readonly IBookingService _booking;
+        public MemberController(IMemberService memberService, IMapper mapper, ITextFileLogger textFileLogger,
+            ICodeItemService codeItem,IBookingService booking, IConfiguration configuration)
         {
-            _memberRepository = repository;
+            _memberService = memberService;
             _mapper = mapper;
             _textFileLogger = textFileLogger;
             _codeItem = codeItem;
+            _configuration = configuration;
+            _booking = booking;
         }
         public async Task<IActionResult> Member()
         {
@@ -29,7 +37,7 @@ namespace HotelBookingSystem.Controllers
             if (Request.Cookies.ContainsKey("UserAccount"))
             {
                 string userAccount = Request.Cookies["UserAccount"];
-                var memberEntity = await _memberRepository.GetUserByAccountAsync(userAccount);
+                var memberEntity = await _memberService.GetUserByAccountAsync(userAccount);
                 if (memberEntity != null)
                 {
                     try
@@ -61,14 +69,14 @@ namespace HotelBookingSystem.Controllers
         {
             try
             {
-                var member = await _memberRepository.SaveMemberAsync(Member_Edit);
+                var member = await _memberService.SaveMemberAsync(Member_Edit);
 
                 if (Request.Cookies.ContainsKey("UserAccount"))
                 {
                     Response.Cookies.Delete("UserAccount");
                 }
-             
-                return RedirectToAction("Index", "Home");
+
+                return RedirectToAction("BookPage","Book");
             }
             catch(Exception ex)
             {
@@ -81,9 +89,58 @@ namespace HotelBookingSystem.Controllers
         {
             return View();
         }
-        public IActionResult Order()
+        public async Task<IActionResult> Order()
         {
+            var user = Request.Cookies["UserAccount"];
+            var bookingdata = await _booking.BookingByaccount(user);
+            ViewData["BookData"] = bookingdata;
             return View();
         }
+
+        private ActionResult Save(Member_Data_Edit member_Data_Edit, Action_Type eAction_Type)
+        {
+            string sMessage ="";
+            var liError = new List<string>();
+            bool isSuccess = false;
+
+            if (eAction_Type == Action_Type.Insert && !member_Data_Edit.memberid.IsNullOrEmpty())
+            {
+                if (_memberService.IsMemberIDExist(member_Data_Edit.memberid))
+                {
+                    liError.Add("使用者帳戶" + member_Data_Edit.memberid + "已存在");
+                }
+            }
+
+            if (!liError.Any())
+            {
+                try
+                {
+                    var Member_Data = _memberService.GetDataOrDefaultByPKey(member_Data_Edit.memberid);
+
+                    switch (eAction_Type)
+                    {
+                        case Action_Type.Insert:
+                        case Action_Type.Update:
+                            Member_Data = _mapper.Map<Member>(member_Data_Edit);
+                            break;
+                    }
+                    _memberService.Update(Member_Data, eAction_Type);
+                    isSuccess = true;
+
+                }catch(Exception ex)
+                {
+                    string logPath = _configuration["Logging:ErrLogPath"];
+                    _textFileLogger.LogAsync(logPath, ex.ToString());
+
+                    sMessage = "儲存失敗，請洽系統管理員";
+                }
+            }
+            else
+            {
+                sMessage += string.Join("\n", liError);
+            }
+            return CustomJsonResult(isSuccess, sMessage);
+        }
+
     }
 }

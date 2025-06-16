@@ -1,0 +1,80 @@
+﻿@using HotelBookingSystem.Models.DTO
+@model Room_Data_Edit
+@{
+    Layout = ViewBag.Layout;
+}
+
+<div id="content-user">
+    <div class="ibox-title">
+        <h5 class="ibox-title-name">使用者作業</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="p-3 rounded" style="background-color: #F2F2F2;">
+            <form action="" method="post" id="DataChangeForm">
+                <table class="table custom-table-bg">
+                    <tbody>
+                        <tr class="gray-row">
+                            <td style="text-align: right; white-space: nowrap; width: 1px;">
+                                <label for="22id"><span class="text-danger">*</span>@Html.DisplayNameFor(x => x.RoomId):</label>
+                            </td>
+                            <td>
+                                @Model.RoomId
+                                @Html.HiddenFor(model => model.RoomId)
+                            </td>
+                        </tr>
+                        <tr class="gray-row">
+                            <td style="text-align: right; white-space: nowrap; width: 1px;">
+                                <label for="roomtype"><span class="text-danger">*</span>@Html.DisplayNameFor(x => x.roomType):</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.roomType, new { @class = "form-control w-100", maxlength = "30", style = "max-height: 30px;" })
+                            </td>
+                            <td style="text-align: right;">
+                                <label for="floor1"><span class="text-danger">*</span>@Html.DisplayNameFor(x => x.floor):</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.floor, new { @class = "form-control w-75", maxlength = "30", style = "max-height: 30px;" })
+                            </td>
+                        </tr>
+                        <tr class="gray-row">
+                            <td style="text-align: right;  white-space: nowrap; width: 1px;">
+                                <label for="roomNum">@Html.DisplayNameFor(x => x.roomNumber):</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.roomNumber,new{@class="form-control w-50",
+                                maxlength = "30" ,style = "max-height: 30px;"})
+                            </td>
+                            <td style="text-align: right;">
+                                <label for="price1">@Html.DisplayNameFor(x => x.price):</label>
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.price, new{@class="form-control w-50",
+                                                                maxlength = "30", style = "max-height: 30px;"})
+                            </td>
+                        </tr>
+                        <tr class="gray-row">
+                            <td style="text-align: right; white-space: nowrap; width: 1px;">
+                                <label for="capacity">人數容量:</label>
+                            </td>
+                            <td>
+                                <input type="text" id="capacity" class="form-control w-25"
+                                       maxlength="30" style="max-height: 30px;" required />
+                            </td>
+                            <td style="text-align: right; white-space: nowrap; width: 1px;">
+                                <label for="vroom">是否空房:</label>
+                            </td>
+                            <td>
+                                <select id="vroom" class="form-control w-25" required>
+                                    <option value="">請選擇</option>
+                                    <option value="0">是</option>
+                                    <option value="1">否</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" value="送出" class="btn btn-primary" />
+            </form>
+        </div>
+    </div>
+</div>

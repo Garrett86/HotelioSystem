@@ -2,7 +2,6 @@
     Layout = ViewBag.Layout;
 }
 
-<main class="col-md-10 d-flex justify-content-center align-items-start mt-4">
     <div class="wrapper wrapper-content" style="width: 100%; max-width: 1000px;">
         <!-- 房間作業內容 -->
         <div id="content-room">
@@ -32,11 +31,10 @@
             </div>
         </div>
     </div>
-</main>
 
 @section Scripts {
     <script>
-        const getByIdRoomUrlTemplate = '@Url.Action("GetByIdRoom", "Root", new { id = "__id__" })';
+        const getByIdRoomBaseUrl = '@Url.Action("GetByIdRoom", "Root")';
     </script>
     <script src="~/js/RootInfinite.js"></script>
 }

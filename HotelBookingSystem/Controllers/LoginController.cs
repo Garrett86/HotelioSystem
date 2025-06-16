@@ -1,4 +1,4 @@
-﻿using HotelBookingSystem.Services.Hotel;
+﻿using HotelBookingSystem.Services.MemberService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
@@ -7,9 +7,9 @@ namespace HotelBookingSystem.Controllers
 {
     public class LoginController : OrderBaseController
     {
-        private readonly IMemberRepository _member;
+        private readonly IMemberService _member;
 
-        public LoginController(IMemberRepository repository)
+        public LoginController(IMemberService repository)
         {
             _member = repository;
         }

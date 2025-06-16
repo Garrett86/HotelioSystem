@@ -7,7 +7,7 @@
 
     function appendRows(items) {
         items.forEach(item => {
-            const editUrl = getByIdRoomUrlTemplate.replace("__id__", item.roomId);
+            const editUrl = `${getByIdRoomBaseUrl}?id=${item.roomId}`;
             const tr = `
                 <tr>
                     <td>

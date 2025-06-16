@@ -39,6 +39,9 @@ namespace HotelBookingSystem.Models.DTO
         [DisplayName("使用者代碼")]
         public int RoomId { get; set; }
 
+        [DisplayName("房型")]
+        public string roomType { get; set; }
+
         [DisplayName("樓層")]
         public string floor { get; set; }
 
