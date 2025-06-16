@@ -26,7 +26,7 @@ namespace HotelBookingSystem.Models.DTO
         [DisplayName("電子信箱")]
         public string email { get; set; }
 
-        [DisplayName("身分證號碼")]
+        [DisplayName("電話")]
         public string phone { get; set; }
 
 

@@ -31,11 +31,13 @@ namespace HotelBookingSystem.Repositories.RoomRepositories
             SQL.AppendLine("    R.createdAt,");
             SQL.AppendLine("    R.updatedAt");
             SQL.AppendLine("FROM Rooms R");
+            SQL.AppendLine("WHERE R.vacantRoom = 1");
+            SQL.AppendLine("ORDER BY R.createdAt DESC");
             var parameters = new DynamicParameters();
             var whereClauses = new List<string>();
-            SQL.AppendLine("ORDER BY R.createdAt DESC");
             string sql = SQL.ToString();
             var result =  await ExecuteQuery<Room_Data_Table>(sql);
+
             return result;
         }
     }

@@ -1,13 +1,18 @@
 using HotelBookingSystem.Data.Repositories;
 using HotelBookingSystem.Models.DB;
+using HotelBookingSystem.Repositories.BookRepositories;
+using HotelBookingSystem.Repositories.CodeItemRepository;
 using HotelBookingSystem.Repositories.RoomRepositories;
-using HotelBookingSystem.Services.Hotel;
+using HotelBookingSystem.Services.BookingService;
+using HotelBookingSystem.Services.CodeItemService;
+using HotelBookingSystem.Services.MemberService;
 using HotelBookingSystem.Services.RoomService;
 using HotelBookingSystem.Services.RootService;
 using HotelBookingSystem.Services.TextFileLogger;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -41,10 +46,15 @@ builder.Services.AddDbContext<HotelBookingDbContext>(options =>
     }));
 
 builder.Services.AddScoped(typeof(IHotelBookingRepository<,>), typeof(HotelBookingRepository<,>));
-builder.Services.AddScoped<IMemberRepository, MemberService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<ICodeItemRepository, CodeItemRepository>();
+builder.Services.AddScoped<IBookRepositoris, BookRepositoris>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IRootService, RootService>();
+builder.Services.AddScoped<ICodeItemService, CodeItemService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+
 
 
 // µù¥U AutoMapper ¨Ã¸ü¤J MappingProfile
@@ -58,6 +68,7 @@ if (!Directory.Exists(logFolder))
 {
     Directory.CreateDirectory(logFolder);
 }
+
 
 builder.Services.AddSingleton<ITextFileLogger>(provider => new TextFileLogger(logFilePath));
 
@@ -82,5 +93,10 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
 
 app.Run();

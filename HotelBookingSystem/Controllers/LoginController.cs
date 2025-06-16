@@ -1,4 +1,4 @@
-﻿using HotelBookingSystem.Services.Hotel;
+﻿using HotelBookingSystem.Services.MemberService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
@@ -7,9 +7,9 @@ namespace HotelBookingSystem.Controllers
 {
     public class LoginController : OrderBaseController
     {
-        private readonly IMemberRepository _member;
+        private readonly IMemberService _member;
 
-        public LoginController(IMemberRepository repository)
+        public LoginController(IMemberService repository)
         {
             _member = repository;
         }
@@ -42,17 +42,17 @@ namespace HotelBookingSystem.Controllers
                 ViewBag.ErrorMessage = "密碼錯誤";
                 return RedirectToAction("Index", "Home");
             }
-
-            if (user.account == "root")
-            {
-                return Redirect("/api/Root/rootpage");
-            }
             // 設置登入 Cookie
             Response.Cookies.Append("UserAccount", account, new CookieOptions
             {
                 HttpOnly = true,
                 //Expires = DateTime.Now.AddDays(7)  // 設定過期時間，例如 7 天
             });
+
+            if (user.account == "root")
+            {
+                return Redirect("/Root/RootPage");
+            }
 
             // 轉向成功頁面
             return RedirectToAction("BookPage", "Book");

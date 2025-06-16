@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DataTable</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    @RenderSection("Styles", required: false)
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+
+        .sidebar {
+            min-height: 100vh;
+            background: #343a40;
+            color: #fff;
+        }
+
+            .sidebar a {
+                color: #fff;
+                display: block;
+                padding: 1rem;
+                text-decoration: none;
+            }
+
+                .sidebar a:hover {
+                    background: #495057;
+                }
+
+        .item_color a {
+            color: black !important;
+        }
+
+            .item_color a:hover {
+                background-color: #e8d394 !important;
+            }
+
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 左側導覽列 -->
+            <nav class="col-md-2 sidebar d-flex flex-column align-items-start p-0">
+                <h4 class="p-3 mb-0">選單</h4>
+                <a href="#" id="menu-home">首頁</a>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        使用者作業
+                    </button>
+                    <ul class="dropdown-menu item_color" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="@Url.Action("RootPage","Root")" id="menu-room">房間作業</a></li>
+                        <li><a class="dropdown-item" href="#" id="menu-user">使用者作業</a></li>
+                    </ul>
+                </div>
+                <a href="#" id="menu-settings">設定</a>
+                <a href="#" id="menu-logout">登出</a>
+            </nav>
+            <main class="col-md-10 d-flex justify-content-center align-items-start mt-4">
+            @RenderBody()
+            </main>
+        </div>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // 取得左側選單元素
+        const menuRoom = document.getElementById('menu-room');
+        const menuUser = document.getElementById('menu-user');
+
+        // 取得內容區塊
+        const contentRoom = document.getElementById('content-room');
+        const contentUser = document.getElementById('content-user');
+
+        flatpickr("#birthday", {
+            dateFormat: "Y-m-d", // yyyy-MM-dd 格式
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

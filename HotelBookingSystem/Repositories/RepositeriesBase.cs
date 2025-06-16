@@ -21,7 +21,7 @@ namespace HotelBookingSystem.Repositories
                 {
                     await conn.OpenAsync();
                     var result = await conn.QueryAsync<T>(sql, parameters);
-                    return result.AsList();
+                    return result.ToList();
                 }
             }
             catch (Exception ex)

@@ -1,17 +1,23 @@
 ﻿using Dapper;
 using HotelBookingSystem.Data.Entities;
+using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DB;
 using HotelBookingSystem.Models.DTO;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using HotelBookingSystem.Services.Enums;
+using System.Threading.Tasks;
 
-namespace HotelBookingSystem.Services.Hotel
+namespace HotelBookingSystem.Services.MemberService
 {
-    public class MemberService : ServiceBase<Member>, IMemberRepository
+    public class MemberService : ServiceBase<Member>, IMemberService
     {
         public MemberService(HotelBookingDbContext context) : base(context)
         {
+
         }
 
         protected void ExecuteNonQuery(string sqlQuery, object parameters = null)
@@ -32,7 +38,8 @@ namespace HotelBookingSystem.Services.Hotel
         public async Task<Member> GetUserByMemberIdAsync(string id)
             => await db.Members.FirstOrDefaultAsync(x => x.memberid == id);
 
-
+        public bool IsMemberIDExist(string MemberID)
+            => db.Members.Where(x => x.memberid == MemberID).Any();
 
         public async Task<List<Member>> SearchMembers(Member_Data_Search Member_Search)
         {
@@ -60,12 +67,12 @@ namespace HotelBookingSystem.Services.Hotel
             return result;
         }
 
-        protected  List<Member> GetAllMemberAsync(string sql)
+        protected List<Member> GetAllMemberAsync(string sql)
         {
             using (var conn = db.Database.GetDbConnection())
             {
-                 conn.Open();
-                var members =conn.Query<Member>(sql);
+                conn.Open();
+                var members = conn.Query<Member>(sql);
                 return members.AsList();
             }
         }
@@ -97,10 +104,82 @@ namespace HotelBookingSystem.Services.Hotel
                 }
             }
 
-            // 儲存變更
-            await db.SaveChangesAsync();
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                var msg = ex.InnerException?.Message ?? ex.Message;
+                throw new Exception($"儲存變更時失敗：{msg}");
+            }
 
             return member;
+        }
+
+        public Member GetDataOrDefaultByPKey(string id)
+            => GetDataOrDefaultByPKey(id);
+
+        public void Update(Member member, Action_Type eAction_Type)
+        {
+            try
+            {
+                switch (eAction_Type)
+                {
+                    case Action_Type.Insert:
+                        SaveInputColumn(member);
+                        AddOrUpdateAsync(member);
+                        break;
+                    case Action_Type.Update:
+                        SaveUpdateColumn(member);
+                        AddOrUpdateAsync(member);
+                        break;
+                    case Action_Type.Delete:
+                        DeleteColumn(member);
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<bool> DeleteAccount(Member_Data_Edit member_Data)
+        {
+            try
+            {
+                var memberId = member_Data.memberid;
+                var member = await db.Members.FirstOrDefaultAsync(x => x.memberid == memberId);
+                if(member is not null)
+                {
+                    return false;
+                }
+                db.Members.Remove(member);
+                await db.SaveChangesAsync();
+                return true;
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private async Task AddOrUpdateAsync(Member inputMember)
+        {
+            var existing = db.Members.FirstOrDefaultAsync(m => m.memberid == inputMember.memberid);
+            if (existing != null)
+            {
+                // 更新現有資料
+                db.Entry(existing).CurrentValues.SetValues(inputMember);
+            }
+            else
+            {
+                // 新增
+                await db.Members.AddAsync(inputMember);
+            }
+
+            await db.SaveChangesAsync();
         }
     }
 }
