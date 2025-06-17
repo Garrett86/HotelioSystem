@@ -1,0 +1,26 @@
+services:
+  hotelbookingsystem:
+    image: ${DOCKER_REGISTRY-}hotelbookingsystem
+    build:
+      context: .
+      dockerfile: HotelBookingSystem/Dockerfile
+
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+
+    depends_on:
+      - hotelbookingsystem.database
+
+  hotelbookingsystem.database:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "YourStrong@Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+volumes:
+  sql_data:

@@ -10,14 +10,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using HotelBookingSystem.Services.Enums;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace HotelBookingSystem.Services.MemberService
 {
     public class MemberService : ServiceBase<Member>, IMemberService
     {
-        public MemberService(HotelBookingDbContext context) : base(context)
+        private readonly IMapper _mapper;
+        public MemberService(HotelBookingDbContext context, IMapper mapper) : base(context)
         {
-
+            _mapper = mapper;
         }
 
         protected void ExecuteNonQuery(string sqlQuery, object parameters = null)
@@ -83,13 +85,8 @@ namespace HotelBookingSystem.Services.MemberService
             if (member == null)
                 throw new Exception("找不到該會員資料");
 
-            // 更新會員資料
-            member.firstName = Member_Eidit.firstName;
-            member.lastName = Member_Eidit.lastName;
-            member.cardID = Member_Eidit.cardID;
-            member.gender = Member_Eidit.gender;
-            member.nationality = Member_Eidit.nationality;
-            member.city = Member_Eidit.city;
+            // 更新會員資料，使用 AutoMapper 
+            _mapper.Map(Member_Eidit, member);
 
             // 處理密碼更新
             if (!string.IsNullOrEmpty(Member_Eidit.password))

@@ -69,7 +69,7 @@
         @if (TempData["SuccessMessage"] != null)
         {
             <script>
-                alert('@TempData["SuccessMessage"]');
+                alert(@Html.Raw(Json.Serialize(TempData["SuccessMessage"])));
             </script>
         }
         <div class="u-clearfix u-sheet u-sheet-1">

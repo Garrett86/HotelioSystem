@@ -2,6 +2,7 @@ using HotelBookingSystem.Data.Repositories;
 using HotelBookingSystem.Models.DB;
 using HotelBookingSystem.Repositories.BookRepositories;
 using HotelBookingSystem.Repositories.CodeItemRepository;
+using HotelBookingSystem.Repositories.MemberRepositories;
 using HotelBookingSystem.Repositories.RoomRepositories;
 using HotelBookingSystem.Services.BookingService;
 using HotelBookingSystem.Services.CodeItemService;
@@ -48,6 +49,7 @@ builder.Services.AddDbContext<HotelBookingDbContext>(options =>
 builder.Services.AddScoped(typeof(IHotelBookingRepository<,>), typeof(HotelBookingRepository<,>));
 builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+builder.Services.AddScoped<IMemberRepositories, MemberRepositories>();
 builder.Services.AddScoped<ICodeItemRepository, CodeItemRepository>();
 builder.Services.AddScoped<IBookRepositoris, BookRepositoris>();
 builder.Services.AddScoped<IRoomService, RoomService>();

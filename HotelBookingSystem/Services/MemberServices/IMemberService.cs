@@ -23,5 +23,6 @@ namespace HotelBookingSystem.Services.MemberService
 
         Task<bool> DeleteAccount(Member_Data_Edit member_Data);
 
+
     }
 }
