@@ -71,11 +71,11 @@ namespace HotelBookingSystem.Controllers
             {
                 var member = await _memberService.SaveMemberAsync(Member_Edit);
 
-                if (Request.Cookies.ContainsKey("UserAccount"))
-                {
-                    Response.Cookies.Delete("UserAccount");
-                }
-
+                //if (Request.Cookies.ContainsKey("UserAccount"))
+                //{
+                //    Response.Cookies.Delete("UserAccount");
+                //}
+                TempData["ErrorMessage"] = "修改成功";
                 return RedirectToAction("BookPage","Book");
             }
             catch(Exception ex)

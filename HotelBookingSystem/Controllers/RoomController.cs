@@ -22,5 +22,6 @@ namespace HotelBookingSystem.Controllers
             var room_data_Table = await _room.SearchRooms(Room_Search);
             return PartialView("_Room_Table", room_data_Table);
         }
+
     }
 }

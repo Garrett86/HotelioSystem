@@ -5,6 +5,7 @@ using HotelBookingSystem.Models.ViewModel;
 using HotelBookingSystem.Services.BookingService;
 using HotelBookingSystem.Services.RoomService;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelBookingSystem.Controllers
 {
@@ -29,7 +30,7 @@ namespace HotelBookingSystem.Controllers
             {
                 ViewBag.User = null;
             }
-            return View();
+            return View("BookPage");
         }
 
         public IActionResult ShoppingCart()
@@ -46,7 +47,7 @@ namespace HotelBookingSystem.Controllers
                 TempData["ErrorMessage"] = "請先登入再進行訂房";
                 return RedirectToAction("BookPage", "Book");
             }
-            book.UserName = user;
+            book.userName = user;
             book.BookingDate = DateTime.Now;
 
             var booking = _booking.SaveAnync(book);
@@ -68,6 +69,16 @@ namespace HotelBookingSystem.Controllers
             var rooms = await _room.SearchRooms(Room_Search);
             ViewData["RoomList"] = rooms;
             return PartialView("BookPage");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DelectBookingByData()
+        {
+            var userName = Request.Cookies["UserAccount"] ?? "";
+            await _booking.DeleteBookingByName(userName);
+            TempData["SuccessMessage"] = "刪除成功!";
+            return RedirectToAction("Order", "Member");
         }
     }
 }

@@ -7,5 +7,8 @@ namespace HotelBookingSystem.Services.BookingService
         Task<int> SaveAnync(Book_Data book_Data);
 
         Task<IEnumerable<Book_Data_Search>> BookingByaccount(string account);
+
+
+        Task<int> DeleteBookingByName(string name);
     }
 }

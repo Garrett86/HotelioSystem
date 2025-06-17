@@ -3,31 +3,34 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HotelBookingSystem.Models
 {
+    [Table("Booking")]
     public class Booking
     {
         [Key]
-        public int BookingId { get; set; }
+        public int bookingId { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string UserName { get; set; }
+        public string userName { get; set; }
 
         [Required]
         public int RoomId { get; set; }
 
         
-        public DateTime CheckInDate { get; set; }
+        public DateTime checkInDate { get; set; }
 
         
-        public DateTime CheckOutDate { get; set; }
+        public DateTime checkOutDate { get; set; }
 
         
-        public DateTime BookingDate { get; set; }
+        public DateTime bookingDate { get; set; }
 
         
-        public decimal TotalAmount { get; set; }
+        public decimal totalAmount { get; set; }
 
         public Room Room { get; set; }
+
+        [ForeignKey("userName")]
         public Customer Customer { get; set; }
     }
 }
