@@ -12,7 +12,7 @@ namespace HotelBookingSystem.Repositories.CodeItemRepository
 
         public async Task<IEnumerable<CodeItem>> GetAllCodeItem()
         {
-            var sql = "SELECT * FROM CodeItem";
+            var sql = "SELECT * FROM \"CodeItem\";";
             var result = await ExecuteQuery<CodeItem>(sql);
             return result.ToList();
         }

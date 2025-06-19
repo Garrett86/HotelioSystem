@@ -8,7 +8,7 @@ using System.Data;
 
 namespace HotelBookingSystem.Repositories.BookRepositories
 {
-    public class BookRepositoris :RepositeriesBase<Booking>,IBookRepositoris
+    public class BookRepositoris : RepositeriesBase<Booking>, IBookRepositoris
     {
         private readonly IMapper _mapper;
 
@@ -35,16 +35,18 @@ namespace HotelBookingSystem.Repositories.BookRepositories
 
         public async Task<IEnumerable<Book_Data_Search>> SearchBookAnync()
         {
-            var sql = "SELECT * FROM Booking";
-            var result= await ExecuteQuery<Book_Data_Search>(sql);
+            //var sql = "SELECT * FROM Booking";
+            var sql = "SELECT * FROM \"Booking\";";
+            var result = await ExecuteQuery<Book_Data_Search>(sql);
             return result;
         }
 
-public async Task<IEnumerable<Book_Data_Search>> SearchBookByAccountAsync(string account)
-{
-    var sql = "SELECT * FROM Booking WHERE userName = @userName";  // 修正這裡，移除空白
-    var result = await ExecuteQuery<Book_Data_Search>(sql, new { userName = account });
-    return result;
-}
+        public async Task<IEnumerable<Book_Data_Search>> SearchBookByAccountAsync(string account)
+        {
+            //var sql = "SELECT * FROM Booking WHERE userName = @userName";  // 修正這裡，移除空白
+            var sql = "SELECT * FROM \"Booking\" WHERE \"userName\" = @userName"; // 修正這裡，移除空白
+            var result = await ExecuteQuery<Book_Data_Search>(sql, new { userName = account });
+            return result;
+        }
     }
 }

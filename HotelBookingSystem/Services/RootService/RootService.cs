@@ -28,6 +28,7 @@ namespace HotelBookingSystem.Services.RootService
                 var query = _context.Rooms.Where(r => r.vacantRoom != 1);
 
                 var data = await query
+                    .OrderByDescending(r => r.createdAt)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();

@@ -6,7 +6,7 @@ namespace HotelBookingSystem.Models
     public class Room
     {
         [Key]
-        public int RoomId { get; set; }
+        public int roomId { get; set; }
 
         [StringLength(50)]
         public string roomType { get; set; }

@@ -40,7 +40,7 @@ builder.Services.AddDistributedMemoryCache();
 
 // 設定 DbContext 並使用 SQL Server
 builder.Services.AddDbContext<HotelBookingDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("HotelBookingConnection"),
+    options.UseNpgsql(builder.Configuration.GetConnectionString("HotelBookingConnection"),
     sqlOptions =>
     {
         sqlOptions.EnableRetryOnFailure(); // 啟用暫時性錯誤重試機制
