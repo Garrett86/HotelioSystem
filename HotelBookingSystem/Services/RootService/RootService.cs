@@ -18,7 +18,7 @@ namespace HotelBookingSystem.Services.RootService
             _logger = logger;
         }
 
-        public async Task<RoomSearchViewModel> GetAllRoom(int page,  int pageSize)
+        public async Task<RoomSearchViewModel> GetAllRoom(int page, int pageSize)
         {
             try
             {
