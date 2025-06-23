@@ -4,6 +4,7 @@ using HotelBookingSystem.Models.DTO;
 using HotelBookingSystem.Services.Enums;
 using HotelBookingSystem.Services.RoomService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using static HotelBookingSystem.Services.RoomService.RoomService;
 
 namespace HotelBookingSystem.Controllers
@@ -46,6 +47,17 @@ namespace HotelBookingSystem.Controllers
             
         }
 
+        [HttpPost]
+        public ActionResult Room_Data_Edit(Room_Data_Edit room_Data_Edit)
+        {
+             var result = this._room.Save(room_Data_Edit, Action_Type.Update);
+            ViewData["DeleteInf"] = result;
+            return PartialView("_RootTable");
+        }
+
+
+        
+
         /// <summary>
         /// 依照編輯類型帶出明細資料
         /// </summary>
@@ -66,5 +78,6 @@ namespace HotelBookingSystem.Controllers
             }
             return cRoom_Data_Edit;
         }
+
     }
 }

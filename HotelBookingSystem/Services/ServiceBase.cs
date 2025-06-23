@@ -2,6 +2,8 @@
 using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DB;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace HotelBookingSystem.Services
 {
@@ -38,6 +40,7 @@ namespace HotelBookingSystem.Services
                 throw new ApplicationException("資料庫查詢失敗", ex);
             }
         }
+
 
         /// <summary>
         /// 針對修改欄位

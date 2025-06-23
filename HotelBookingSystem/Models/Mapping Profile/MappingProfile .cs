@@ -11,6 +11,7 @@ public class MappingProfile : Profile
         CreateMap<Member, Member_Data_Edit>();
         CreateMap<Member_Data_Edit, Member>();
         CreateMap<Room, Room_Data_Edit>();
+        CreateMap<Room_Data_Edit, Room>();
         CreateMap<Member_Data_Edit, Member>();
         CreateMap<Book_Data, Book_Data_Search>();
         CreateMap<Book_Data_Search, Booking>();

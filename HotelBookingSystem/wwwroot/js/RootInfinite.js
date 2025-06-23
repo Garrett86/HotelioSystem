@@ -36,7 +36,7 @@
         loading = true;
 
         $.ajax({
-            url: '/api/Root/SearchByRoom',
+            url: '/api/Root/rooms',
             type: 'GET',
             data: { page: page, pageSize: pageSize },
             success: function (response) {

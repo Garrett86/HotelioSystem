@@ -1,6 +1,8 @@
 ﻿using HotelBookingSystem.Data.Entities;
 using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DTO;
+using HotelBookingSystem.Models.ViewModel;
+using HotelBookingSystem.Services.Enums;
 
 namespace HotelBookingSystem.Services.RoomService
 {
@@ -8,5 +10,7 @@ namespace HotelBookingSystem.Services.RoomService
     {
         Task<IEnumerable<Room_Data_Table>> SearchRooms(Room_Data_Search Room_Search);
         Room GetRoomById(int id);
+
+        RoomEidtViewModel Save(Room_Data_Edit Data_Edit, Action_Type eAction_Type);
     }
 }
