@@ -13,7 +13,7 @@ namespace HotelBookingSystem.Repositories.RoomRepositories
         {
         }
 
-        public async Task<IEnumerable<Room_Data_Table>> SearchRooms(Room_Data_Search Room_Search)
+        public async Task<IEnumerable<Room_Data_Table>> SearchRooms()
         {
             StringBuilder SQL = new StringBuilder();
             SQL.AppendLine("SELECT");
@@ -31,7 +31,6 @@ namespace HotelBookingSystem.Repositories.RoomRepositories
             SQL.AppendLine("    R.createdAt,");
             SQL.AppendLine("    R.updatedAt");
             SQL.AppendLine("FROM Rooms R");
-            SQL.AppendLine("WHERE R.vacantRoom = 1");
             SQL.AppendLine("ORDER BY R.createdAt DESC");
             var parameters = new DynamicParameters();
             var whereClauses = new List<string>();

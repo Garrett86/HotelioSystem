@@ -2,35 +2,79 @@
     Layout = ViewBag.Layout;
 }
 
-    <div class="wrapper wrapper-content" style="width: 100%; max-width: 1000px;">
-        <!-- 房間作業內容 -->
-        <div id="content-room">
-            <div class="ibox-title">
-                <h5 class="ibox-title-name">房間作業</h5>
-            </div>
-            <div class="ibox-content">
-                <div id="table-container" style="max-height: 600px; overflow-y: auto;">
-                    <table id="myTable" class="table table-bordered table-striped text-center">
-                        <thead>
-                            <tr>
-                                <th>修改</th>
-                                <th>刪除</th>
-                                <th>編號</th>
-                                <th>名稱</th>
-                                <th>樓層</th>
-                                <th>房間號碼</th>
-                                <th>床型</th>
-                                <th>價錢</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- 資料列將由 JS 動態插入 -->
-                        </tbody>
-                    </table>
-                </div>
+@section Styles {
+    <style>
+        .reset-sql {
+            float: right;
+            position: relative;
+            top: -10px;
+        }
+
+        .btn-reset {
+            width: 70px;
+            height: 50px;
+            color: #ffff;
+            font-size: 20px;
+            border: none;
+            border-radius: 15px;
+            background-color: #4cb2e1;
+        }
+
+            .btn-reset:hover {
+                background-color: #babbbd;
+            }
+
+        #table-container {
+            display: none;
+        }
+    </style>
+}
+
+<div class="wrapper wrapper-content" style="width: 100%; max-width: 1000px;">
+    <!-- 房間作業內容 -->
+    <div id="content-room">
+        <div>
+            <form id="searchForm">
+                <select name="vacantRoom" style="width: 75px; margin-right: 10px;">
+                    <option value="">請選擇</option>
+                    <option value="0">無空房</option>
+                    <option value="1">有空房</option>
+                </select>
+                <input type="hidden" name="page" value="1" />
+                <input type="hidden" name="pageSize" value="10" />
+                <input type="submit" value="查詢" />
+            </form>
+        </div>
+        <div class="reset-sql">
+            <button class="btn-reset">重置</button>
+        </div>
+        <br />
+        <div class="ibox-title">
+            <h5 class="ibox-title-name">房間作業</h5>
+        </div>
+        <div class="ibox-content">
+            <div id="table-container" style="max-height: 600px; overflow-y: auto;">
+                <table id="myTable" class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>修改</th>
+                            <th>刪除</th>
+                            <th>編號</th>
+                            <th>名稱</th>
+                            <th>樓層</th>
+                            <th>房間號碼</th>
+                            <th>床型</th>
+                            <th>價錢</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- 資料列將由 JS 動態插入 -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
 
 @section Scripts {
     <script>

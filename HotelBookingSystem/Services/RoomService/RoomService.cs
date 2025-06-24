@@ -28,10 +28,11 @@ namespace HotelBookingSystem.Services.RoomService
 
         public async Task<IEnumerable<Room_Data_Table>> SearchRooms(Room_Data_Search Room_Search)
         {
-            var result = await _room.SearchRooms(Room_Search);
+            var result = await _room.SearchRooms();
+            result = result.Where(x => x.vacantRoom == 1).ToList();
             if (Room_Search.capacity != 0)
             {
-                result = result.Where(x => x.capacity == Room_Search.capacity);
+                result = result.Where(x => x.capacity == Room_Search.capacity).ToList();
             }
 
             return result;
@@ -122,6 +123,11 @@ namespace HotelBookingSystem.Services.RoomService
             {
                 throw ex;
             }
+        }
+
+        public IQueryable<Room> getAllRooms()
+        {
+            return db.Rooms.AsQueryable();
         }
     }
 }

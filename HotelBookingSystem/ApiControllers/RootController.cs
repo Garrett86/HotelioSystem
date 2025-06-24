@@ -16,7 +16,7 @@ using Action_Type = HotelBookingSystem.Services.Enums.Action_Type;
 namespace HotelBookingSystem.ApiControllers
 {
     [ApiController]
-    [Route("api/Root")]
+    [Route("api/rooms")]
     public class RootController : RootBaseController
     {
 
@@ -32,10 +32,10 @@ namespace HotelBookingSystem.ApiControllers
         }
 
 
-        [HttpGet("rooms")]
-        public async Task<ActionResult<RoomSearchViewModel>> GetAllRoom([FromQuery] int page, [FromQuery] int pageSize)
+        [HttpGet]
+        public async Task<ActionResult<RoomSearchViewModel>> GetAllRoom([FromQuery] int? vacantRoom, [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
         {
-            var result = await _root.GetAllRoom(page, pageSize);
+            var result = await _root.GetAllRoom(vacantRoom, page, pageSize);
             return Ok(result);
         }
 

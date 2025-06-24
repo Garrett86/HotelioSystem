@@ -6,6 +6,6 @@ namespace HotelBookingSystem.Services.RootService
 {
     public interface IRootService
     {
-        Task<RoomSearchViewModel> GetAllRoom([FromQuery] int page, [FromQuery] int pageSize);
+        Task<RoomSearchViewModel> GetAllRoom(int? vacantRoom, int page,  int pageSize);
     }
 }
