@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel;
 
 namespace HotelBookingSystem.Models.DTO
 {
@@ -12,7 +13,7 @@ namespace HotelBookingSystem.Models.DTO
 
         public string bedType { get; set; }
 
-        public string price { get; set; }
+        public decimal price { get; set; }
 
         public byte capacity { get; set; }
 
@@ -24,6 +25,9 @@ namespace HotelBookingSystem.Models.DTO
 
         public byte vacantRoom { get; set; }
 
+        public string vacantRoomLabel { get; set; }
+
+        public int cookingCount { get; set; }
         public DateTime createdAt { get; set; }
 
         public DateTime updatedAt { get; set; }
@@ -57,13 +61,22 @@ namespace HotelBookingSystem.Models.DTO
         [DisplayName("人數")]
         public byte capacity { get; set; }
 
+        public string vacantRoomLabel { get; set; }
+
+        [DisplayName("剩餘房間")]
+        public int cookingCount { get; set; }
+
+
         public string description { get; set; }
 
         public string facilities { get; set; }
 
+        [DisplayName("連結")]
         public string ImageURL { get; set; }
 
         [DisplayName("狀　　態")]
         public byte vacantRoom { get; set; } = 0;
+
+        public List<SelectListItem> VacantRoomOptions { get; set; }
     }
 }

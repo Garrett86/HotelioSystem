@@ -9,7 +9,7 @@ namespace HotelBookingSystem.Repositories.RoomRepositories
 {
     public class RoomRepository : RepositeriesBase<Room>, IRoomRepository
     {
-        public RoomRepository(HotelBookingDbContext context) : base(context)
+        public RoomRepository(HotelBookingDbContext context, IConfiguration config) : base(context, config)
         {
         }
 
@@ -28,10 +28,14 @@ namespace HotelBookingSystem.Repositories.RoomRepositories
             SQL.AppendLine("    R.facilities,");
             SQL.AppendLine("    R.ImageURL,");
             SQL.AppendLine("    R.vacantRoom,");
+            SQL.AppendLine("    Ci.ItemText AS vacantRoomLabel,");
+            SQL.AppendLine("    R.cookingCount,");
             SQL.AppendLine("    R.createdAt,");
             SQL.AppendLine("    R.updatedAt");
             SQL.AppendLine("FROM Rooms R");
+            SQL.AppendLine("LEFT JOIN CodeItem Ci ON R.vacantRoom = Ci.ItemValue AND Ci.CodeID = 'vacantRoom'");
             SQL.AppendLine("ORDER BY R.createdAt DESC");
+
             var parameters = new DynamicParameters();
             var whereClauses = new List<string>();
             string sql = SQL.ToString();

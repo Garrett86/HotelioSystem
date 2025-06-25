@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     const tbody = $('#myTable tbody');
     let page = 1;
-    const pageSize = 10;
+    const pageSize = 15;
     let noMoreData = false;
     let loading = false;
     let searchQuery = '';
@@ -45,7 +45,7 @@
 
     function appendRows(items) {
         items.forEach(item => {
-            const editUrl = `/rooms/edit?id=${item.roomId}`;
+            const editUrl = `${getByIdRoomBaseUrl}?id=${item.roomId}`;
             tbody.append(`
                 <tr>
                     <td><a href="${editUrl}" class="btn btn-sm btn-link text-primary"><i class="fas fa-edit"></i></a></td>
@@ -56,6 +56,7 @@
                     <td>${item.roomNumber}</td>
                     <td>${item.bedType}</td>
                     <td>${item.price}</td>
+                    <td>${item.cookingCount}</td>
                 </tr>`);
         });
     }

@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
 using HotelBookingSystem.ActionFilter;
+using HotelBookingSystem.Models.DB;
 using HotelBookingSystem.Models.DTO;
+using HotelBookingSystem.Services.CodeItemService;
 using HotelBookingSystem.Services.Enums;
 using HotelBookingSystem.Services.RoomService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using static HotelBookingSystem.Services.RoomService.RoomService;
 
@@ -14,11 +18,13 @@ namespace HotelBookingSystem.Controllers
 
         private readonly IRoomService _room;
         private readonly IMapper _mapper;
+        private readonly ICodeItemService _codeItem;
 
-        public RootController(IRoomService room, IMapper mapper)
+        public RootController(IRoomService room, IMapper mapper,ICodeItemService codeItem)
         {
             _room = room;
             _mapper = mapper;
+            _codeItem = codeItem;
         }
 
         public IActionResult RootPage()
@@ -40,23 +46,23 @@ namespace HotelBookingSystem.Controllers
                 }
                 return PartialView("_RootTable", roomDataEdit); // 傳給 View
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, new { message = ex.Message });
             }
-            
+
         }
 
         [HttpPost]
         public ActionResult Room_Data_Edit(Room_Data_Edit room_Data_Edit)
         {
-             var result = this._room.Save(room_Data_Edit, Action_Type.Update);
+            var result = this._room.Save(room_Data_Edit, Action_Type.Update);
             ViewData["DeleteInf"] = result;
             return PartialView("_RootTable");
         }
 
 
-        
+
 
         /// <summary>
         /// 依照編輯類型帶出明細資料
@@ -69,13 +75,21 @@ namespace HotelBookingSystem.Controllers
             var cRoom_Data_Edit = new Room_Data_Edit();
             if (eAction_Type != Action_Type.Insert)
             {
-                var rooms = _room.GetRoomById(sRoomID);
+                var rooms = await this._room.GetRoomByIdOnRoot(sRoomID);
                 if (rooms == null)
                 {
                     return null;
                 }
                 cRoom_Data_Edit = _mapper.Map(rooms, cRoom_Data_Edit);
             }
+            var cc = await this._codeItem.GetCodeItemBynum();
+            cRoom_Data_Edit.VacantRoomOptions = cc
+                .Select(c => new SelectListItem
+                {
+                    Value = c.ItemValue?.ToString() ?? "", // 避免 null
+                    Text = c.ItemText
+                })
+                .ToList();
             return cRoom_Data_Edit;
         }
 

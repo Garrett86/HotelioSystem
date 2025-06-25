@@ -11,7 +11,11 @@ namespace HotelBookingSystem.Services.RoomService
         Task<IEnumerable<Room_Data_Table>> SearchRooms(Room_Data_Search Room_Search);
         Room GetRoomById(int id);
 
+        Task<Room> GetRoomByIdOnRoot(int id);
+
         IQueryable<Room> getAllRooms();
+
+        Task<IEnumerable<Room_Data_Table>> getAllRoomsByData();
 
         RoomEidtViewModel Save(Room_Data_Edit Data_Edit, Action_Type eAction_Type);
     }

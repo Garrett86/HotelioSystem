@@ -12,7 +12,7 @@ namespace HotelBookingSystem.Repositories.BookRepositories
     {
         private readonly IMapper _mapper;
 
-        public BookRepositoris(HotelBookingDbContext context, IMapper mapper) : base(context)
+        public BookRepositoris(HotelBookingDbContext context, IMapper mapper, IConfiguration config) : base(context, config)
         {
             _mapper = mapper;
         }

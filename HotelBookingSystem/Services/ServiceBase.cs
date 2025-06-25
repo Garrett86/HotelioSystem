@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DB;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -11,11 +12,20 @@ namespace HotelBookingSystem.Services
     {
         protected readonly HotelBookingDbContext db;
         protected IBaseInputColumn _baseInputColumn;
+        private HotelBookingDbContext context;
+        private readonly string _connString;
+        private readonly ILogger _logger;
 
         public ServiceBase(HotelBookingDbContext context, IBaseInputColumn baseInputColumn)
         {
             db = context ?? throw new ArgumentNullException(nameof(context));
             _baseInputColumn = baseInputColumn;
+        }
+
+        public ServiceBase(HotelBookingDbContext context, IConfiguration configuration)
+        {
+            db = context ?? throw new ArgumentNullException(nameof(context));
+            _connString = configuration.GetConnectionString("HotelBookingConnection");
         }
 
         public ServiceBase(HotelBookingDbContext context)
@@ -27,10 +37,12 @@ namespace HotelBookingSystem.Services
         {
             try
             {
-                using (var conn = db.Database.GetDbConnection())
+                using (var conn = new SqlConnection(_connString))
                 {
+                    //Console.WriteLine("連線字串：" + conn.ConnectionString);
                     conn.Open();
                     var result = conn.Query<T>(sql, parameters);
+                    conn.Close();
                     return result.AsList();
                 }
             }
@@ -90,7 +102,17 @@ namespace HotelBookingSystem.Services
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        public T GetDataOrDefaultByPKey(params object[] ID) => db.Set<T>().Find(ID) ?? Activator.CreateInstance<T>();//簡寫fun 
+        public T GetDataOrDefaultByPKey(params object[] ID)
+        {
+            var entity = db.Set<T>().Find(ID);
+            if (entity == null)
+            {
+                _logger.LogWarning($"資料未找到：{typeof(T).Name}, 主鍵 = {string.Join(",", ID)}");
+                return Activator.CreateInstance<T>();
+            }
+            return entity;
+        }
+        //public T GetDataOrDefaultByPKey(params object[] ID) => db.Set<T>().Find(ID) ?? Activator.CreateInstance<T>();//簡寫fun 
 
     }
 }

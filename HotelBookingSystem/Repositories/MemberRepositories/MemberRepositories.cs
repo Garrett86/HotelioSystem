@@ -5,7 +5,7 @@ namespace HotelBookingSystem.Repositories.MemberRepositories
 {
     public class MemberRepositories : RepositeriesBase<Member>, IMemberRepositories
     {
-        public MemberRepositories(HotelBookingDbContext context) : base(context)
+        public MemberRepositories(HotelBookingDbContext context, IConfiguration config) : base(context, config)
         {
         }
 

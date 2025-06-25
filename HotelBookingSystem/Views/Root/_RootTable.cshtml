@@ -42,13 +42,25 @@
                                     @Html.TextBoxFor(model => model.roomType, new { @class = "form-control w-100", maxlength = "30", style = "max-height: 30px;" })
                                 </td>
                                 <td style="text-align: right;">
+                                    <label for="floor1"><span class="text-danger">*</span>@Html.DisplayNameFor(x => x.bedType):</label>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(model => model.bedType, new { @class = "form-control w-75", maxlength = "30", style = "max-height: 30px;" })
+                                </td>
+                                <td style="text-align: right;">
+                                    <label for="floor1"><span class="text-danger">*</span>@Html.DisplayNameFor(x => x.ImageURL):</label>
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(model => model.ImageURL, new { @class = "form-control w-75", maxlength = "30", style = "max-height: 30px;" })
+                                </td>
+                            </tr>
+                            <tr class="gray-row">
+                                <td style="text-align: right;">
                                     <label for="floor1"><span class="text-danger">*</span>@Html.DisplayNameFor(x => x.floor):</label>
                                 </td>
                                 <td>
                                     @Html.TextBoxFor(model => model.floor, new { @class = "form-control w-75", maxlength = "30", style = "max-height: 30px;" })
                                 </td>
-                            </tr>
-                            <tr class="gray-row">
                                 <td style="text-align: right;  white-space: nowrap; width: 1px;">
                                     <label for="roomNum">@Html.DisplayNameFor(x => x.roomNumber):</label>
                                 </td>
@@ -66,21 +78,23 @@
                     </tr>
                     <tr class="gray-row">
                         <td style="text-align: right; white-space: nowrap; width: 1px;">
-                            <label for="capacity">人數容量:</label>
+                            <label for="capacity"><span class="text-danger">*</span>@Html.DisplayNameFor(x => x.capacity):</label>
                         </td>
                         <td>
-                            <input type="text" id="capacity" class="form-control w-25"
-                                   maxlength="30" style="max-height: 30px;" required />
+                            @Html.TextBoxFor(model => model.capacity, new { id = "capacity", @class = "form-control w-25", maxlength = "30", style = "max-height: 30px;", required = true })
+                        </td>
+                        <td style="text-align: right; white-space: nowrap; width: 1px;">
+                            <label for="capacity"><span class="text-danger">*</span>@Html.DisplayNameFor(x => x.cookingCount):</label>
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(model => model.cookingCount, new { id = "capacity", @class = "form-control w-25", maxlength = "30", style = "max-height: 30px;", required = true })
                         </td>
                         <td style="text-align: right; white-space: nowrap; width: 1px;">
                             <label for="vroom">是否空房:</label>
                         </td>
                         <td>
-                            <select id="vroom" class="form-control w-25" required>
-                                <option value="">請選擇</option>
-                                <option value="0">是</option>
-                                <option value="1">否</option>
-                            </select>
+                            @Html.DropDownListFor(model => model.vacantRoom, Model.VacantRoomOptions, "請選擇", 
+                            new { @class = "form-control w-25", required = "required", id = "vroom" })
                         </td>
                     </tr>
                 </tbody>

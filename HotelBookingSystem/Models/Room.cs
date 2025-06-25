@@ -17,7 +17,7 @@ namespace HotelBookingSystem.Models
 
         public string?  bedType { get; set; }
 
-        public string? price { get; set; }
+        public decimal? price { get; set; }
 
         public byte? capacity {  get; set; }
 
@@ -28,6 +28,9 @@ namespace HotelBookingSystem.Models
         public string? ImageURL {  get; set; }
 
         public byte? vacantRoom {  get; set; }
+
+
+        public int? cookingCount { get; set; }
 
         public DateTime createdAt {  get; set; }
 

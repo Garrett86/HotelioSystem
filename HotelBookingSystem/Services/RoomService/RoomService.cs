@@ -1,16 +1,18 @@
-﻿using Dapper;
+﻿using AutoMapper;
+using Dapper;
 using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DB;
 using HotelBookingSystem.Models.DTO;
+using HotelBookingSystem.Models.ViewModel;
 using HotelBookingSystem.Repositories.RoomRepositories;
+using HotelBookingSystem.Services.Enums;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
-using HotelBookingSystem.Services.Enums;
-using Microsoft.IdentityModel.Tokens;
-using AutoMapper;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using HotelBookingSystem.Models.ViewModel;
+using System.Threading.Tasks;
 
 namespace HotelBookingSystem.Services.RoomService
 {
@@ -19,6 +21,7 @@ namespace HotelBookingSystem.Services.RoomService
         private readonly IRoomRepository _room;
         private readonly IMapper _mapper;
         private readonly ILogger<RoomService> _logger;
+
         public RoomService(HotelBookingDbContext context, IRoomRepository roomRepository, IMapper mapper, ILogger<RoomService> logger) : base(context)
         {
             _room = roomRepository;
@@ -63,7 +66,7 @@ namespace HotelBookingSystem.Services.RoomService
             {
                 try
                 {
-                    var room_Data = GetRoomById(Data_Edit.RoomId);
+                    var room_Data = GetDataOrDefaultByPKey(Data_Edit.RoomId);
                     switch (eAction_Type)
                     {
                         case Action_Type.Insert:
@@ -128,6 +131,20 @@ namespace HotelBookingSystem.Services.RoomService
         public IQueryable<Room> getAllRooms()
         {
             return db.Rooms.AsQueryable();
+        }
+
+        public Task<IEnumerable<Room_Data_Table>> getAllRoomsByData()
+        {
+            var result = this._room.SearchRooms();
+            return result;
+        }
+
+        public async Task<Room> GetRoomByIdOnRoot(int id)
+        {
+            var result = await this._room.SearchRooms();
+            var room = result.FirstOrDefault(x => x.RoomId == id);
+            var mapper = this._mapper.Map<Room>(room);
+            return mapper;
         }
     }
 }

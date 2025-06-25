@@ -17,7 +17,7 @@ namespace HotelBookingSystem.Services.MemberService
     public class MemberService : ServiceBase<Member>, IMemberService
     {
         private readonly IMapper _mapper;
-        public MemberService(HotelBookingDbContext context, IMapper mapper) : base(context)
+        public MemberService(HotelBookingDbContext context, IMapper mapper, IConfiguration config) : base(context, config)
         {
             _mapper = mapper;
         }
