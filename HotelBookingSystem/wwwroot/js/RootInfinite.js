@@ -49,7 +49,7 @@
             tbody.append(`
                 <tr>
                     <td><a href="${editUrl}" class="btn btn-sm btn-link text-primary"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="#" class="btn-delete btn btn-sm btn-link text-danger" data-roomid="${item.roomId}"><i class="fa fa-trash"></i></a></td>
+                    <td><a href="${editUrl}" class="btn-delete btn btn-sm btn-link text-danger" data-roomid="${item.roomId}"><i class="fa fa-trash"></i></a></td>
                     <td>${item.roomId}</td>
                     <td>${item.roomType}</td>
                     <td>${item.floor}</td>

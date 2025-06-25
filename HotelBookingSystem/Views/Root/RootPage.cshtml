@@ -46,7 +46,7 @@
             </form>
         </div>
         <div class="reset-sql">
-            <button class="btn-reset">重置</button>
+            <button class="btn-reset" onclick="resetRoomData()">重置</button>
         </div>
         <br />
         <div class="ibox-title">
@@ -80,6 +80,21 @@
 @section Scripts {
     <script>
         const getByIdRoomBaseUrl = '@Url.Action("GetByIdRoom", "Root")';
+
+                async function resetRoomData() {
+            if (!confirm("確定要重置所有房間資料嗎？此操作不可復原。")) return;
+
+            try {
+                const response = await fetch("/api/rooms/reset", { method: "POST" });
+                const result = await response.json();
+
+                alert(result.message);
+                if (result.success) location.reload();
+            } catch (error) {
+                alert("發生錯誤：" + error);
+            }
+        }
+
     </script>
     <script src="~/js/RootInfinite.js"></script>
 }

@@ -20,7 +20,7 @@ namespace HotelBookingSystem.Controllers
         private readonly IMapper _mapper;
         private readonly ICodeItemService _codeItem;
 
-        public RootController(IRoomService room, IMapper mapper,ICodeItemService codeItem)
+        public RootController(IRoomService room, IMapper mapper, ICodeItemService codeItem)
         {
             _room = room;
             _mapper = mapper;
@@ -60,6 +60,7 @@ namespace HotelBookingSystem.Controllers
             ViewData["DeleteInf"] = result;
             return PartialView("_RootTable");
         }
+
 
 
 
