@@ -1,4 +1,5 @@
-﻿using HotelBookingSystem.Models.DTO;
+﻿using HotelBookingSystem.Models;
+using HotelBookingSystem.Models.DTO;
 
 namespace HotelBookingSystem.Services.BookingService
 {
@@ -8,7 +9,8 @@ namespace HotelBookingSystem.Services.BookingService
 
         Task<IEnumerable<Book_Data_Search>> BookingByaccount(string account);
 
+        Task<Book_Data> GetBookByNewData(string account);
 
-        Task<int> DeleteBookingByName(string name);
+        Task<int> DeleteBookingByRoomId(int id);
     }
 }

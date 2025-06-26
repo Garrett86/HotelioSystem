@@ -25,7 +25,9 @@ namespace HotelBookingSystem.Models
         
         public DateTime bookingDate { get; set; }
 
-        
+        public DateTime initDate { get; set; }
+
+
         public decimal totalAmount { get; set; }
 
         public Room Room { get; set; }

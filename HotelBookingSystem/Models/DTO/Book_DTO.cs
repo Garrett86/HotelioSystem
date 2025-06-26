@@ -11,27 +11,7 @@ namespace HotelBookingSystem.Models.DTO
 
         public int roomId { get; set; }
 
-        public decimal totalAmount { get; set; }
-
-
-        public DateTime CheckInDate { get; set; }
-
-
-        public DateTime CheckOutDate { get; set; }
-
-
-        public DateTime BookingDate { get; set; }
-
-        public int PeopleCount { get; set; }
-    }
-
-    public class Book_Data_Search
-    {
-        public int bookingId { get; set; }
-
-        public string userName { get; set; }
-
-        public int roomId { get; set; }
+        public decimal price { get; set; }
 
         public decimal totalAmount { get; set; }
 
@@ -41,6 +21,20 @@ namespace HotelBookingSystem.Models.DTO
 
         public DateTime checkOutDate { get; set; }
 
+
+        public DateTime BookingDate { get; set; }
+
+        public DateTime initDate { get; set; }
+
+        public int PeopleCount { get; set; }
+    }
+
+    public class Book_Data_Search : Book_Data
+    {
+       
+
+
+        public DateTime initDate { get; set; }
 
         public DateTime bookingDate { get; set; }
     }

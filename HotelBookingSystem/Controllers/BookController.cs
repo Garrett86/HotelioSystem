@@ -5,6 +5,7 @@ using HotelBookingSystem.Models.ViewModel;
 using HotelBookingSystem.Services.BookingService;
 using HotelBookingSystem.Services.RoomService;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace HotelBookingSystem.Controllers
@@ -33,8 +34,16 @@ namespace HotelBookingSystem.Controllers
             return View("BookPage");
         }
 
-        public IActionResult ShoppingCart()
+        public async Task<IActionResult> ShoppingCart()
         {
+            var user = Request.Cookies["UserAccount"];
+            if (string.IsNullOrEmpty(user))
+            {
+                TempData["ErrorMessage"] = "請先登入再進行訂房";
+                return RedirectToAction("BookPage", "Book");
+            }
+            var data = await this._booking.BookingByaccount(user);
+            ViewData["BookingData"] = data;
             return View();
         }
 
@@ -49,10 +58,14 @@ namespace HotelBookingSystem.Controllers
             }
             book.userName = user;
             book.BookingDate = DateTime.Now;
+            book.totalAmount = book.price * book.PeopleCount;
+
             var count = await this._room.GetAvailableRooms(book.bookingId, book.PeopleCount);
 
-            var booking = _booking.SaveAnync(book);
-            ViewData["BookData"] = book;
+            var booking = await this._booking.SaveAnync(book);
+            Book_Data data = new Book_Data();
+            data = await this._booking.GetBookByNewData(user);
+            ViewData["BookingData"] = data;
            return View();
         }
 
@@ -74,10 +87,9 @@ namespace HotelBookingSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DelectBookingByData()
+        public async Task<IActionResult> DelectBookingByData(int id)
         {
-            var userName = Request.Cookies["UserAccount"] ?? "";
-            await _booking.DeleteBookingByName(userName);
+            await this._booking.DeleteBookingByRoomId(id);
             TempData["SuccessMessage"] = "刪除成功!";
             return RedirectToAction("Order", "Member");
         }

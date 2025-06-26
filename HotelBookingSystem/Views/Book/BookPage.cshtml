@@ -12,33 +12,34 @@
     <style>
         .layout-price{
             position: absolute;
+            top:151px;
             right: 115px;
         }
         .input-date {
             width: 125px !important;
             position: absolute;
-            top: 12px;
+            top: 320px;
             left: -130px;
         }
 
         .out-date {
             width: 125px !important;
             position: absolute;
-            top: 12px;
+            top: 320px;
             left: 20px;
         }
 
         .input-name {
             width: 70px !important;
             position: absolute;
-            top: 12px;
+            top: 320px;
             right: 90px;
         }
 
         .btn-room {
             width: 50px !important;
             position: absolute;
-            top: 22px;
+            top: 326px;
             right: -12px;
         }
 
@@ -113,7 +114,7 @@
     foreach (var Item in data)
     {
         <section class="u-clearfix u-section-2" id="block-10">
-            <div class="u-clearfix u-sheet u-sheet-1">
+            <div class="u-clearfix u-sheet u-sheet-1 ">
                 <div class="u-border-2 u-border-grey-75 u-container-style u-group u-group-1">
                     <div class="u-container-layout u-container-layout-1">
                         <div class="custom-expanded u-list u-list-1">
@@ -171,14 +172,6 @@
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
                                         <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-10"></td>
                                     </tr>
-                                    <tr style="height: 157px;">
-                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-11"> 商務二小床房/【一般訂房】附贈早餐</td>
-                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-12"></td>
-                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell"></td>
-                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-table-cell-15"></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -192,16 +185,6 @@
                                 <p class="u-text u-text-default u-text-6"> 含稅及服務費</p>
                             </div>
                         </div>
-                        <div class="u-container-style u-group u-group-4">
-                            <div class="u-container-layout layout-price">
-                                <p class="u-text u-text-default u-text-7">
-                                    <span class="u-file-icon u-icon"><img src="~/images/2645890.png" alt=""></span>&nbsp;​本日最低價
-                                </p>
-                                <p class="u-text u-text-default u-text-palette-2-base u-text-8">NT$@($"{Item.price:N0}")</p>
-                                <p class="u-text u-text-default u-text-9">元</p>
-                                <p class="u-text u-text-default u-text-10"> 含稅及服務費</p>
-                            </div>
-                        </div>
                         <div class="u-container-style u-group u-group-5">
                             <div class="u-container-layout u-container-layout-6">
                                 <div class="u-form u-form-1">
@@ -212,7 +195,7 @@
                                         }
                                         <input type="hidden" name="BookingId" value="@Item.RoomId" />
                                         <input type="hidden" name="roomId" value="@Item.roomNumber" />
-                                        <input type="hidden" name="TotalAmount" value="@($"{Item.price:N0}")" />
+                                        <input type="hidden" name="price" value="@($"{Item.price:N0}")" />
                                         <div class="u-form-date u-form-group u-label-none u-form-group-1">
                                             <label for="CheckInDate" class="u-label">Date</label>
                                             <input type="text" placeholder="YYYY/MM/DD" id="CheckInDate" name="CheckInDate"
@@ -237,46 +220,6 @@
                                                 <option value="7" data-calc="7">7</option>
                                                 <option value="8" data-calc="8">8</option>
                                                 <option value="9+" data-calc="9+">9人以上</option>
-                                            </select>
-                                        </div>
-                                        <div class="u-align-center u-form-group u-form-submit u-label-none">
-                                            <button type="submit" class="btn-room">訂房</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="u-container-style u-group u-group-6">
-                            <div class="u-container-layout u-container-layout-7">
-                                <div class="u-form u-form-2">
-                                    <form asp-controller="Booking" asp-action="ShoppingCart" method="post">
-                                        <input type="hidden" name="BookingId" value="@Item.RoomId" />
-                                        <input type="hidden" name="roomId" value="@Item.roomNumber" />
-                                        <input type="hidden" name="TotalAmount" value="@Item.price" />
-                                        <input type="hidden" name="UserName" value="" />
-                                        <div class="u-form-date u-form-group u-label-none u-form-group-1">
-                                            <label for="CheckInDate" class="u-label">Date</label>
-                                            <input type="text" placeholder="YYYY/MM/DD" id="CheckInDate" name="CheckInDate"
-                                                   class="u-border-none u-input u-input-rectangle u-radius u-input-1  input-date" data-date-format="yyyy/mm/dd"
-                                                   required="required">
-                                        </div>
-                                        <div class="u-form-date u-form-group u-label-none u-form-group-1">
-                                            <label for="CheckOutDate" class="u-label">Date</label>
-                                            <input type="text" placeholder="YYYY/MM/DD" id="CheckOutDate" name="CheckOutDate"
-                                                   class="u-border-none u-input u-input-rectangle u-radius u-input-1  out-date" data-date-format="yyyy/mm/dd"
-                                                   required="required">
-                                        </div>
-                                        <div class="u-form-group u-form-number u-form-number-layout-number u-label-none u-form-group-2">
-                                            <label for="number-8a57" class="u-label">Number Input</label>
-                                            <select id="PeopleCount" name="PeopleCount" class="u-input u-input-rectangle input-name">
-                                                <option value="1" data-calc="1">1</option>
-                                                <option value="2" data-calc="2">2</option>
-                                                <option value="3" data-calc="3">3</option>
-                                                <option value="4" data-calc="4">4</option>
-                                                <option value="5" data-calc="5">5</option>
-                                                <option value="6" data-calc="6">6</option>
-                                                <option value="7" data-calc="7">7</option>
-                                                <option value="8" data-calc="8">8</option>
                                             </select>
                                         </div>
                                         <div class="u-align-center u-form-group u-form-submit u-label-none">

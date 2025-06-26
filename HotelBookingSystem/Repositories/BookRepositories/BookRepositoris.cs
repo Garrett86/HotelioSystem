@@ -28,13 +28,21 @@ namespace HotelBookingSystem.Repositories.BookRepositories
         (bookingId, userName, roomId, checkInDate, checkOutDate, bookingDate, totalAmount)
         VALUES 
         (@bookingId, @userName, @roomId, @checkInDate, @checkOutDate, @bookingDate, @totalAmount)";
-            using var conn = new SqlConnection(_connString);
-            if (conn.State != ConnectionState.Open)
-                await conn.OpenAsync();
+            try
+            {
+                using var conn = new SqlConnection(_connString);
+                if (conn.State != ConnectionState.Open)
+                    await conn.OpenAsync();
 
-            var result = await conn.ExecuteAsync(sql, book); // 注意是 ExecuteAsync
+                var result = await conn.ExecuteAsync(sql, book); // 注意是 ExecuteAsync
 
-            return result; // 回傳受影響列數（int）
+                return result; // 回傳受影響列數（int）
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("查詢失敗：" + ex.ToString());
+                throw new ApplicationException("資料庫查詢失敗", ex);
+            }
         }
 
         public async Task<IEnumerable<Book_Data_Search>> SearchBookAnync()

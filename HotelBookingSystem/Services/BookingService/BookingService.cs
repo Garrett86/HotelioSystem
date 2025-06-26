@@ -26,10 +26,10 @@ namespace HotelBookingSystem.Services.BookingService
             return result;
         }
 
-        public async Task<int> DeleteBookingByName(string name)
+        public async Task<int> DeleteBookingByRoomId(int id)
         {
             var bookings = await _db.Booking
-                .Where(b => b.userName == name)
+                .Where(b => b.RoomId == id)
                 .ToListAsync();
 
             if (!bookings.Any())
@@ -37,6 +37,20 @@ namespace HotelBookingSystem.Services.BookingService
 
             _db.Booking.RemoveRange(bookings);
             return await _db.SaveChangesAsync();
+        }
+
+        public async Task<Book_Data> GetBookByNewData(string account)
+        {
+            var result = await this._book.SearchBookByAccountAsync(account);
+
+            //var latest = result?.OrderByDescending(x => x.initDate).FirstOrDefault();
+            var latest = result.MaxBy(x => x.initDate);  // .NET 6+ 可用
+
+            if (latest == null)
+                return null;
+
+            var data = _mapper.Map<Book_Data>(latest);
+            return data;
         }
 
         public async Task<int> SaveAnync(Book_Data book_Data)
