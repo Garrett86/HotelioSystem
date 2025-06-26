@@ -162,6 +162,26 @@ namespace HotelBookingSystem.Services.MemberService
             }
         }
 
+        public string GenerateNextMember()
+        {
+            var maxMemberId = this.db.Members
+                .OrderByDescending(m => m.memberid)
+                .Select(m => m.memberid)
+                .FirstOrDefault();
+
+            int nexNumber = 1;
+            if (!string.IsNullOrEmpty(maxMemberId) && maxMemberId.Length == 4 && maxMemberId.StartsWith("M"))
+            {
+                if (int.TryParse(maxMemberId.Substring(1), out int currentNumber))
+                {
+                    nexNumber = currentNumber + 1;
+                    nexNumber = currentNumber + 1;
+                }
+            }
+
+            return "M" + nexNumber.ToString("D3");
+        }
+
         private async Task AddOrUpdateAsync(Member inputMember)
         {
             var existing = db.Members.FirstOrDefaultAsync(m => m.memberid == inputMember.memberid);

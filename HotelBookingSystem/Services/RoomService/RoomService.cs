@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -44,7 +45,8 @@ namespace HotelBookingSystem.Services.RoomService
         public Room GetRoomById(int id)
             => GetDataOrDefaultByPKey(id);
 
-        public RoomEidtViewModel  Save(Room_Data_Edit Data_Edit, Action_Type eAction_Type)
+
+        public RoomEidtViewModel Save(Room_Data_Edit Data_Edit, Action_Type eAction_Type)
         {
             string sMessage = "";
             List<string> liError = new List<string>();
@@ -145,6 +147,24 @@ namespace HotelBookingSystem.Services.RoomService
             var room = result.FirstOrDefault(x => x.RoomId == id);
             var mapper = this._mapper.Map<Room>(room);
             return mapper;
+        }
+
+        public async Task<int> GetAvailableRooms(int roomId, int people)
+        {
+            var total = await this.db.Rooms
+                .Where(x => x.RoomId == roomId)
+                .Select(x => x.cookingCount)
+                .FirstOrDefaultAsync();
+
+            var newCount = (total ?? 0) - people;
+
+            var room = new Room { RoomId = roomId , cookingCount = newCount};
+            this.db.Rooms.Attach(room);
+            this.db.Entry(room).Property(x => x.cookingCount).IsModified = true;
+
+
+            await this.db.SaveChangesAsync();
+            return  newCount;
         }
     }
 }

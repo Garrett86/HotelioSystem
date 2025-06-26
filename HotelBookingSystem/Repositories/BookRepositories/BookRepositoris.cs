@@ -3,7 +3,9 @@ using Dapper;
 using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DB;
 using HotelBookingSystem.Models.DTO;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Data;
 
 namespace HotelBookingSystem.Repositories.BookRepositories
@@ -11,10 +13,12 @@ namespace HotelBookingSystem.Repositories.BookRepositories
     public class BookRepositoris :RepositeriesBase<Booking>,IBookRepositoris
     {
         private readonly IMapper _mapper;
+        private readonly string _connString;
 
         public BookRepositoris(HotelBookingDbContext context, IMapper mapper, IConfiguration config) : base(context, config)
         {
             _mapper = mapper;
+            _connString = config.GetConnectionString("HotelBookingConnection");
         }
 
         public async Task<int> SaveBookingAsync(Book_Data book)
@@ -24,11 +28,11 @@ namespace HotelBookingSystem.Repositories.BookRepositories
         (bookingId, userName, roomId, checkInDate, checkOutDate, bookingDate, totalAmount)
         VALUES 
         (@bookingId, @userName, @roomId, @checkInDate, @checkOutDate, @bookingDate, @totalAmount)";
-            using var conn = db.Database.GetDbConnection(); // 你若有封裝，則用那個方法取代
+            using var conn = new SqlConnection(_connString);
             if (conn.State != ConnectionState.Open)
                 await conn.OpenAsync();
 
-            var result = await conn.ExecuteAsync(sql, book); // Dapper 的 ExecuteAsync
+            var result = await conn.ExecuteAsync(sql, book); // 注意是 ExecuteAsync
 
             return result; // 回傳受影響列數（int）
         }

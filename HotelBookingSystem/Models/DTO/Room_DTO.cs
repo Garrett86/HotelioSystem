@@ -5,6 +5,8 @@ namespace HotelBookingSystem.Models.DTO
 {
     public class Room_Data_Search
     {
+        internal object capacities;
+
         public string roomType { get; set; }
 
         public string floor { get; set; }

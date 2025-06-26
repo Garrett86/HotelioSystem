@@ -17,6 +17,10 @@ namespace HotelBookingSystem.Services.RoomService
 
         Task<IEnumerable<Room_Data_Table>> getAllRoomsByData();
 
+
+        Task<int> GetAvailableRooms(int roomId, int people);
+
+
         RoomEidtViewModel Save(Room_Data_Edit Data_Edit, Action_Type eAction_Type);
     }
 }

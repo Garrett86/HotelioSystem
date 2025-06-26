@@ -39,7 +39,6 @@ namespace HotelBookingSystem.Services
             {
                 using (var conn = new SqlConnection(_connString))
                 {
-                    //Console.WriteLine("連線字串：" + conn.ConnectionString);
                     conn.Open();
                     var result = conn.Query<T>(sql, parameters);
                     conn.Close();

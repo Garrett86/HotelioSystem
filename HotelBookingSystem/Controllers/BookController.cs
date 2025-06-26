@@ -39,7 +39,7 @@ namespace HotelBookingSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult ShoppingCart(Book_Data book)
+        public async Task<IActionResult> ShoppingCart(Book_Data book)
         {
             var user = Request.Cookies["UserAccount"];
             if (string.IsNullOrEmpty(user))
@@ -49,6 +49,7 @@ namespace HotelBookingSystem.Controllers
             }
             book.userName = user;
             book.BookingDate = DateTime.Now;
+            var count = await this._room.GetAvailableRooms(book.bookingId, book.PeopleCount);
 
             var booking = _booking.SaveAnync(book);
             ViewData["BookData"] = book;

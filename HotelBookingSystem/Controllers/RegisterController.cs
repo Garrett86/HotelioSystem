@@ -1,6 +1,7 @@
 ﻿using HotelBookingSystem.Data.Entities;
 using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DB;
+using HotelBookingSystem.Services.MemberService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,10 +10,12 @@ namespace HotelBookingSystem.Controllers
     public class RegisterController : OrderBaseController
     {
         private readonly HotelBookingDbContext _context;
+        private readonly IMemberService _member;
 
-        public RegisterController(HotelBookingDbContext context)
+        public RegisterController(HotelBookingDbContext context, IMemberService memberService)
         {
             _context = context;
+            _member = memberService;
         }
 
         [HttpGet]
@@ -43,7 +46,7 @@ namespace HotelBookingSystem.Controllers
                 return View(member);
             }
 
-            member.memberid = GenerateNextMember();
+            member.memberid = this._member.GenerateNextMember();
             //設定註冊日期
             member.initDate = DateTime.Now;
 
@@ -57,24 +60,5 @@ namespace HotelBookingSystem.Controllers
             return RedirectToAction("BookPage", "Book");
         }
 
-
-        private string GenerateNextMember()
-        {
-            var maxMemberId = _context.Members
-                .OrderByDescending(m => m.memberid)
-                .Select(m => m.memberid)
-                .FirstOrDefault();
-
-            int nexNumber = 1;
-            if (!string.IsNullOrEmpty(maxMemberId) && maxMemberId.Length == 4 && maxMemberId.StartsWith("M"))
-            {
-                if (int.TryParse(maxMemberId.Substring(1), out int currentNumber))
-                {
-                    nexNumber = currentNumber + 1;
-                }
-            }
-
-            return "M" + nexNumber.ToString("D3");
-        }
     }
 }
