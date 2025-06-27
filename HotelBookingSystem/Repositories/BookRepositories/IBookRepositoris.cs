@@ -10,5 +10,11 @@ namespace HotelBookingSystem.Repositories.BookRepositories
         Task<IEnumerable<Book_Data_Search>> SearchBookAnync();
 
         Task<IEnumerable<Book_Data_Search>> SearchBookByAccountAsync(string account);
+
+
+        Task<IEnumerable<Room_Data_Table>> GetRoomWithBookingsAsync(int id);
+
+        Task<IEnumerable<Room_Data_Table>> GetRoomWithBookingsByIdsAsync(IEnumerable<int> ids);
+
     }
 }

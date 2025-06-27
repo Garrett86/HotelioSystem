@@ -42,8 +42,10 @@ namespace HotelBookingSystem.Controllers
                 TempData["ErrorMessage"] = "請先登入再進行訂房";
                 return RedirectToAction("BookPage", "Book");
             }
-            var data = await this._booking.BookingByaccount(user);
-            ViewData["BookingData"] = data;
+            var bookings = await this._booking.BookingByaccount(user);
+            var data = await this._booking.GetBookByNewDatas(user);
+            ViewData["BookingData"] = bookings;
+            ViewData["RoomData"] = data;
             return View();
         }
 
@@ -60,13 +62,27 @@ namespace HotelBookingSystem.Controllers
             book.BookingDate = DateTime.Now;
             book.totalAmount = book.price * book.PeopleCount;
 
+            var test = await this._booking.BookingByaccount(user);
+            if (test != null )
+            {
+                bool hasRoom = test.Any(b => b.roomId == book.roomId);
+                if (hasRoom) {
+                    TempData["ErrorMessage"] = "訂單重複請重新選擇";
+                    return RedirectToAction("BookPage", "Book");
+                }
+            }
+
             var count = await this._room.GetAvailableRooms(book.bookingId, book.PeopleCount);
 
-            var booking = await this._booking.SaveAnync(book);
-            Book_Data data = new Book_Data();
-            data = await this._booking.GetBookByNewData(user);
-            ViewData["BookingData"] = data;
-           return View();
+            var bookaccount = await this._booking.SaveAnync(book);
+            var booking = await this._booking.GetBookByAccountOnShoping(user);
+            var room = new Room_Data_Table();
+            room = await this._booking.GetBookByNewData(user);
+            var bookings = booking != null ? new List<Book_Data_Search> { booking } : Enumerable.Empty<Book_Data_Search>();
+            var data = room != null ? new List<Room_Data_Table> { room } : Enumerable.Empty<Room_Data_Table>();
+            ViewData["BookingData"] = bookings;
+            ViewData["RoomData"] = data;
+            return View();
         }
 
         [HttpPost]

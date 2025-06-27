@@ -9,7 +9,10 @@ namespace HotelBookingSystem.Services.BookingService
 
         Task<IEnumerable<Book_Data_Search>> BookingByaccount(string account);
 
-        Task<Book_Data> GetBookByNewData(string account);
+        Task<Book_Data_Search> GetBookByAccountOnShoping(string account);
+
+        Task<Room_Data_Table> GetBookByNewData(string account);
+        Task<IEnumerable<Room_Data_Table>> GetBookByNewDatas(string account);
 
         Task<int> DeleteBookingByRoomId(int id);
     }
