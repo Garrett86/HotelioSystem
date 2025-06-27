@@ -44,8 +44,14 @@ namespace HotelBookingSystem.Controllers
             }
             var bookings = await this._booking.BookingByaccount(user);
             var data = await this._booking.GetBookByNewDatas(user);
+            decimal total = bookings.Join(data,
+                                         b => b.bookingId,
+                                         d => d.RoomId,
+                                         (b, d) => b.PeopleCount * d.price)
+                                    .Sum();
             ViewData["BookingData"] = bookings;
             ViewData["RoomData"] = data;
+            ViewData["Total"] = total;
             return View();
         }
 
@@ -60,13 +66,14 @@ namespace HotelBookingSystem.Controllers
             }
             book.userName = user;
             book.BookingDate = DateTime.Now;
-            book.totalAmount = book.price * book.PeopleCount;
+            var total = book.totalAmount = book.price * book.PeopleCount;
 
             var test = await this._booking.BookingByaccount(user);
-            if (test != null )
+            if (test != null)
             {
                 bool hasRoom = test.Any(b => b.roomId == book.roomId);
-                if (hasRoom) {
+                if (hasRoom)
+                {
                     TempData["ErrorMessage"] = "訂單重複請重新選擇";
                     return RedirectToAction("BookPage", "Book");
                 }
@@ -82,6 +89,7 @@ namespace HotelBookingSystem.Controllers
             var data = room != null ? new List<Room_Data_Table> { room } : Enumerable.Empty<Room_Data_Table>();
             ViewData["BookingData"] = bookings;
             ViewData["RoomData"] = data;
+            ViewData["Total"] = total;
             return View();
         }
 

@@ -4,6 +4,7 @@
     Layout = ViewBag.Layout;
     var dataBook = ViewData["BookingData"] as IEnumerable<Book_Data_Search>;
     var rooms = ViewData["RoomData"] as IEnumerable<Room_Data_Table>;
+    var total = ViewData["Total"];
 }
 
 @section Styles {
@@ -12,6 +13,10 @@
         .bgc-hd {
             color: #ffff !important;
             background-color: #808080 !important;
+        }
+
+        .btn-delete {
+            border: 1px solid #0080FF !important;
         }
     </style>
 }
@@ -29,7 +34,7 @@
                     foreach (var Item in dataBook)
                     {
                         var room = rooms.FirstOrDefault(r => r.RoomId == Item.bookingId);
-                        if(room != null)
+                        if (room != null)
                         {
                             <div class="u-container-style u-expanded-width u-group u-white u-group-3">
                                 <div class="u-container-layout u-container-layout-3">
@@ -48,10 +53,14 @@
                                         <p class="u-text u-text-default u-text-grey-50 u-text-7">入住日期:</p>
                                         <p class="u-text u-text-default u-text-grey-50 u-text-8">@Item.checkInDate.ToString("yyyy-MM-dd")</p>
                                     </div>
-                                    <a href=""
-                                       class="u-border-1 u-border-grey-75 u-border-hover-grey-75 u-btn u-button-style u-white u-btn-1">
-                                        刪除房間
-                                    </a>
+                                    @using (Html.BeginForm("DelectBookingByData", "Book", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@Item.bookingId" />
+                                        <button type="submit" class="u-border-1 u-border-grey-75 u-border-hover-grey-75 u-btn u-button-style u-white u-btn-1 btn-delete">
+                                            刪除房間
+                                        </button>
+                                    }
                                     <p class="u-text u-text-default u-text-grey-50 u-text-9">退房日期:</p>
                                     <p class="u-text u-text-default u-text-grey-50 u-text-10">@Item.checkOutDate.ToString("yyyy-MM-dd") </p>
                                 </div>
@@ -108,12 +117,12 @@
                                             <tr style="height: 34px;">
                                                 <td class="u-table-cell u-table-cell-1"> 訂房金額</td>
                                                 <td class="u-table-cell"></td>
-                                                <td class="u-table-cell u-table-cell-3"> TWD 2,200</td>
+                                                <td class="u-table-cell u-table-cell-3"> TWD @($"{total:N0}")</td>
                                             </tr>
                                             <tr style="height: 46px;">
                                                 <td class="u-table-cell u-table-cell-4"> 訂房總額</td>
                                                 <td class="u-table-cell"></td>
-                                                <td class="u-table-cell u-table-cell-6"> TWD 2,200</td>
+                                                <td class="u-table-cell u-table-cell-6"> TWD @($"{total:N0}")</td>
                                             </tr>
                                             <tr style="height: 46px;">
                                                 <td class="u-table-cell u-table-cell-7"> 應付訂金</td>
@@ -131,7 +140,7 @@
         </div>
         <div class="u-container-style u-group u-white u-group-6">
             <div class="u-container-layout u-valign-middle u-container-layout-6">
-                <h4 class="u-text u-text-default u-text-11"> 應付總額 TWD 2222222</h4>
+                <h4 class="u-text u-text-default u-text-11"> 應付總額 @($"{Convert.ToInt32(total) + 660:N0}")</h4>
             </div>
         </div>
 
