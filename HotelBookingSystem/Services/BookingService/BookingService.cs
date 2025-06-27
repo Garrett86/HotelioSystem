@@ -3,6 +3,7 @@ using HotelBookingSystem.Models;
 using HotelBookingSystem.Models.DB;
 using HotelBookingSystem.Models.DTO;
 using HotelBookingSystem.Repositories.BookRepositories;
+using HotelBookingSystem.Repositories.RoomRepositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace HotelBookingSystem.Services.BookingService
@@ -39,7 +40,14 @@ namespace HotelBookingSystem.Services.BookingService
             return await _db.SaveChangesAsync();
         }
 
-        public async Task<Book_Data> GetBookByNewData(string account)
+        public async Task<Book_Data_Search> GetBookByAccountOnShoping(string account)
+        {
+            var result = await BookingByaccount(account);
+            var latest = result.MaxBy(x => x.initDate);
+            return latest;
+        }
+
+        public async Task<Room_Data_Table> GetBookByNewData(string account)
         {
             var result = await this._book.SearchBookByAccountAsync(account);
 
@@ -49,8 +57,17 @@ namespace HotelBookingSystem.Services.BookingService
             if (latest == null)
                 return null;
 
-            var data = _mapper.Map<Book_Data>(latest);
+            var datas = await this._book.GetRoomWithBookingsAsync(latest.bookingId);
+            var data = datas.FirstOrDefault();
             return data;
+        }
+
+        public async Task<IEnumerable<Room_Data_Table>> GetBookByNewDatas(string account)
+        {
+           var bookings = await this.BookingByaccount(account);
+            var roomIds = bookings.Select(b => b.bookingId).Distinct();
+            var result = await this._book.GetRoomWithBookingsByIdsAsync(roomIds);
+            return result;
         }
 
         public async Task<int> SaveAnync(Book_Data book_Data)

@@ -7,6 +7,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using System.Text;
 
 namespace HotelBookingSystem.Repositories.BookRepositories
 {
@@ -21,13 +22,73 @@ namespace HotelBookingSystem.Repositories.BookRepositories
             _connString = config.GetConnectionString("HotelBookingConnection");
         }
 
+        public async Task<IEnumerable<Room_Data_Table>> GetRoomWithBookingsAsync(int id)
+        {
+            var sql = new StringBuilder();
+            sql.AppendLine("SELECT");
+            sql.AppendLine("    R.[roomId],");
+            sql.AppendLine("    R.[roomType],");
+            sql.AppendLine("    R.[floor],");
+            sql.AppendLine("    R.[roomNumber],");
+            sql.AppendLine("    R.[bedType],");
+            sql.AppendLine("    R.[price],");
+            sql.AppendLine("    R.[capacity],");
+            sql.AppendLine("    R.[description],");
+            sql.AppendLine("    R.[facilities],");
+            sql.AppendLine("    R.[ImageURL],");
+            sql.AppendLine("    R.[vacantRoom],");
+            sql.AppendLine("    R.[cookingCount],");
+            sql.AppendLine("    R.[createdAt],");
+            sql.AppendLine("    R.[updatedAt],");
+            sql.AppendLine("    B.[bookingId],");
+            sql.AppendLine("    B.[userName],");
+            sql.AppendLine("    B.[initDate]");
+            sql.AppendLine("FROM [HotelBookingSystem].[dbo].[Rooms] R");
+            sql.AppendLine("LEFT JOIN [Booking] B ON R.roomId = B.roomId");
+            sql.AppendLine("WHERE R.roomId = @id");
+            sql.AppendLine("ORDER BY B.initDate DESC;");
+
+            var result = await ExecuteQuery<Room_Data_Table>(sql.ToString(), new { id });
+            return result;
+        }
+
+        public async Task<IEnumerable<Room_Data_Table>> GetRoomWithBookingsByIdsAsync(IEnumerable<int> ids)
+        {
+            var sql = new StringBuilder();
+            sql.AppendLine("SELECT");
+            sql.AppendLine("    R.[roomId],");
+            sql.AppendLine("    R.[roomType],");
+            sql.AppendLine("    R.[floor],");
+            sql.AppendLine("    R.[roomNumber],");
+            sql.AppendLine("    R.[bedType],");
+            sql.AppendLine("    R.[price],");
+            sql.AppendLine("    R.[capacity],");
+            sql.AppendLine("    R.[description],");
+            sql.AppendLine("    R.[facilities],");
+            sql.AppendLine("    R.[ImageURL],");
+            sql.AppendLine("    R.[vacantRoom],");
+            sql.AppendLine("    R.[cookingCount],");
+            sql.AppendLine("    R.[createdAt],");
+            sql.AppendLine("    R.[updatedAt],");
+            sql.AppendLine("    B.[bookingId],");
+            sql.AppendLine("    B.[userName],");
+            sql.AppendLine("    B.[initDate]");
+            sql.AppendLine("FROM [HotelBookingSystem].[dbo].[Rooms] R");
+            sql.AppendLine("LEFT JOIN [Booking] B ON R.roomId = B.roomId");
+            sql.AppendLine("WHERE R.roomId  IN @ids");
+            sql.AppendLine("ORDER BY B.initDate DESC;");
+
+            var result = await ExecuteQuery<Room_Data_Table>(sql.ToString(), new { ids });
+            return result;
+        }
+
         public async Task<int> SaveBookingAsync(Book_Data book)
         {
             var sql = @"
         INSERT INTO Booking 
-        (bookingId, userName, roomId, checkInDate, checkOutDate, bookingDate, totalAmount)
+        (bookingId, userName, roomId, checkInDate, checkOutDate, bookingDate, totalAmount,PeopleCount)
         VALUES 
-        (@bookingId, @userName, @roomId, @checkInDate, @checkOutDate, @bookingDate, @totalAmount)";
+        (@bookingId, @userName, @roomId, @checkInDate, @checkOutDate, @bookingDate, @totalAmount,@PeopleCount)";
             try
             {
                 using var conn = new SqlConnection(_connString);
