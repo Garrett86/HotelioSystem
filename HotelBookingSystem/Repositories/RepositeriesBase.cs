@@ -39,5 +39,26 @@ namespace HotelBookingSystem.Repositories
                 throw new ApplicationException("資料庫查詢失敗", ex);
             }
         }
+
+        protected async Task<int> ExecuteNonQueryAsync(string sql, object parameters = null)
+        {
+            try
+            {
+                using (var conn = new SqlConnection(_connString))
+                {
+                    //Console.WriteLine("連線字串：" + conn.ConnectionString);
+                    await conn.OpenAsync();
+                    var result = await conn.ExecuteAsync(sql, parameters);
+                    conn.Close();
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                // 可記錄錯誤，或拋出自訂例外
+                Console.WriteLine("操作失敗：" + ex.ToString());
+                throw new ApplicationException("資料庫操作失敗", ex);
+            }
+        }
     }
 }
