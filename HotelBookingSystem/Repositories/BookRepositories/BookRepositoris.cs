@@ -86,9 +86,9 @@ namespace HotelBookingSystem.Repositories.BookRepositories
         {
             var sql = @"
         INSERT INTO Booking 
-        (bookingId, userName, roomId, checkInDate, checkOutDate, bookingDate, totalAmount,PeopleCount)
+        (bookingId, userName, roomId, PeopleCount, totalAmount,checkInDate, checkOutDate, bookingDate)
         VALUES 
-        (@bookingId, @userName, @roomId, @checkInDate, @checkOutDate, @bookingDate, @totalAmount,@PeopleCount)";
+        (@bookingId, @userName, @roomId,@PeopleCount,@totalAmount,@checkInDate, @checkOutDate, @bookingDate)";
             try
             {
                 using var conn = new SqlConnection(_connString);
@@ -119,5 +119,6 @@ public async Task<IEnumerable<Book_Data_Search>> SearchBookByAccountAsync(string
     var result = await ExecuteQuery<Book_Data_Search>(sql, new { userName = account });
     return result;
 }
+
     }
 }

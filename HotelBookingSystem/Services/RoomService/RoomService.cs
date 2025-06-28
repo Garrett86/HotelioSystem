@@ -32,8 +32,8 @@ namespace HotelBookingSystem.Services.RoomService
 
         public async Task<IEnumerable<Room_Data_Table>> SearchRooms(Room_Data_Search Room_Search)
         {
-            var result = await _room.SearchRooms();
-            result = result.Where(x => x.vacantRoom == 1).ToList();
+            var rooms = await _room.SearchRooms();
+            var result = rooms.Where(x => x.cookingCount > 0 && x.vacantRoom == 1).ToList();
             if (Room_Search.capacity != 0)
             {
                 result = result.Where(x => x.capacity == Room_Search.capacity).ToList();
@@ -156,7 +156,7 @@ namespace HotelBookingSystem.Services.RoomService
                 .Select(x => x.cookingCount)
                 .FirstOrDefaultAsync();
 
-            var newCount = (total ?? 0) - people;
+            var newCount = Math.Max((total ?? 0) - people, 0);
 
             var room = new Room { RoomId = roomId , cookingCount = newCount};
             this.db.Rooms.Attach(room);

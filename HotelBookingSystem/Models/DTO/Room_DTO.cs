@@ -29,7 +29,7 @@ namespace HotelBookingSystem.Models.DTO
 
         public string vacantRoomLabel { get; set; }
 
-        public int cookingCount { get; set; }
+        public int? cookingCount { get; set; }
         public DateTime createdAt { get; set; }
 
         public DateTime updatedAt { get; set; }

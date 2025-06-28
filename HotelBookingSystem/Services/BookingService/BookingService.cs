@@ -12,13 +12,15 @@ namespace HotelBookingSystem.Services.BookingService
     {
         private readonly IBookRepositoris _book;
         private readonly IMapper _mapper;
+        private readonly IRoomRepository _room;
         private HotelBookingDbContext _db;
 
-        public BookingService(HotelBookingDbContext context, IBookRepositoris book, IMapper mapper)
+        public BookingService(HotelBookingDbContext context, IBookRepositoris book, IMapper mapper, IRoomRepository room)
         {
             _db = context ?? throw new ArgumentNullException(nameof(context));
             _book = book ?? throw new ArgumentNullException(nameof(book));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _room = room ?? throw new ArgumentNullException(nameof(room));
         }
 
         public async Task<IEnumerable<Book_Data_Search>> BookingByaccount(string account)
@@ -64,7 +66,7 @@ namespace HotelBookingSystem.Services.BookingService
 
         public async Task<IEnumerable<Room_Data_Table>> GetBookByNewDatas(string account)
         {
-           var bookings = await this.BookingByaccount(account);
+            var bookings = await this.BookingByaccount(account);
             var roomIds = bookings.Select(b => b.bookingId).Distinct();
             var result = await this._book.GetRoomWithBookingsByIdsAsync(roomIds);
             return result;
@@ -72,6 +74,11 @@ namespace HotelBookingSystem.Services.BookingService
 
         public async Task<int> SaveAnync(Book_Data book_Data)
         {
+            var room = await this._room.SearchRoomByIdAnync(book_Data.bookingId);
+            if (room.Any(r => (r.cookingCount ?? 0) <= 0))
+            {
+                this._room.UpdateRoomByVacantRoomAnync(book_Data.bookingId, 0);
+            }
             var result = await _book.SaveBookingAsync(book_Data);
             return result;
         }
